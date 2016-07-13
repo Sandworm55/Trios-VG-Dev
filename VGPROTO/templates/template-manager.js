@@ -8,8 +8,40 @@
 		};
 	});
 	
-	app.directive("w3TestDirective", function() {
-		return {
-			template : "<h1>Made by a directive!</h1>"
+	app.directive("homeBody",function(){
+		return{
+			restrict:'E',
+			templateUrl:"templates/home-body.html"
+		};
+	});
+	
+	app.directive("extraStuffBody",function(){
+		return{
+			restrict:'E',
+			templateUrl:"templates/extra-stuff-body.html"
+		};
+	});
+	
+	app.controller("TabController", function() {
+		this.tab = 1;
+
+		this.isSet = function(checkTab) {
+			return this.tab === checkTab;
+		};
+
+		this.setTab = function(setTab) {
+			this.tab = setTab;
+		};
+	});
+	
+	app.controller("SideTabController", function() {
+		this.SideTab = 0;
+
+		this.isSetSide = function(checkSideTab) {
+			return this.SideTab === checkSideTab;
+		};
+
+		this.setSideTab = function(setSideTab) {
+			this.SideTab = setSideTab;
 		};
 	});

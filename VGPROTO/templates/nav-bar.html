@@ -1,4 +1,3 @@
-<!--
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
 	<div class="navbar-header">
@@ -12,21 +11,40 @@
 
 	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	  <ul class="nav navbar-nav">
-		<li class="active"><a href="#">Home</a></li>
-		<li><a href="#">Link</a></li>
-		<li class="dropdown">
-		  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Side Projects<span class="caret"></span></a>
+		<li ng-class="{ active:tab.isSet(1) }"><a href ng-click="tab.setTab(1)">Home</a></li>
+		<li ng-class="{ active:tab.isSet(2) }"><a href ng-click="tab.setTab(2)">Extra Fun Stuff</a></li>
+		<li  	ng-class="{ active:!sideTab.isSetSide(0) }" 
+				class="dropdown">
+		
+		  <a 	href 
+				class="dropdown-toggle" 
+				data-toggle="dropdown" 
+				role="button" 
+				aria-haspopup="true" 
+				aria-expanded="false">Side Projects<span class="caret"></span></a>
+				
 		  <ul class="dropdown-menu">
-			<li><a href="#">Nothing Yet</a></li>
+			<li ng-class="{ active:sideTab.isSetSide(1) }"><a href ng-click="sideTab.setSideTab(1)">Nothing Yet1</a></li>
+			<li ng-class="{ active:sideTab.isSetSide(2) }"><a href ng-click="sideTab.setSideTab(2)">Nothing Yet2</a></li>
+			<li ng-class="{ active:sideTab.isSetSide(3) }"><a href ng-click="sideTab.setSideTab(3)">Nothing Yet3</a></li>
+			<li ng-class="{ active:sideTab.isSetSide(4) }"><a href ng-click="sideTab.setSideTab(4)">Nothing Yet4</a></li>
 		  </ul>
 		</li>
-		<li class="dropdown">
-		  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Assigned Projects<span class="caret"></span></a>
+		<li  ng-class="{ active:tab.isSet(4) }" 
+		class="dropdown">
+		
+		  <a 	href
+				class="dropdown-toggle" 
+				data-toggle="dropdown" 
+				role="button" 
+				aria-haspopup="true" 
+				aria-expanded="false">Assigned Projects<span class="caret"></span></a>
+				
 		  <ul class="dropdown-menu">
-			<li><a href="#">Nothing Yet</a></li>
+			<li><a href">Nothing Yet</a></li>
 		  </ul>
 		</li>
 	  </ul>
 	</div>
   </div>
-</nav>-->
+</nav>
