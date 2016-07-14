@@ -18,10 +18,21 @@
 	</head>
 	
 	<body ng-app="templateManager" ng-controller="TabController as tab">
-	<div ng-controller="SideTabController as sideTab">
-		<nav-bar></nav-bar>
-		<home-body ng-show="tab.isSet(1)"></home-body>
-		<extra-stuff-body ng-show="tab.isSet(2)"></extra-stuff-body>
-	</div>
+		<div ng-controller="SideTabController as sideTab">
+			<nav-bar></nav-bar>
+			
+			<home-body ng-show="tab.isSet(1)">
+			</home-body>
+			
+			<extra-stuff-body ng-show="tab.isSet(2)">
+			</extra-stuff-body>
+			
+			<div id="canvasHome"ng-show="sideTab.isSetSide(1)">
+				<rock-dodge-body>
+				</rock-dodge-body>
+				<home-body-test>
+				</home-body-test>
+			</div>
+		</div>
 	</body>
 </html>

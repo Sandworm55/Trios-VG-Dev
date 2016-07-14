@@ -1,4 +1,4 @@
-
+(function(){
 	var app = angular.module("templateManager",[]);
 	
 	app.directive("navBar",function(){
@@ -45,3 +45,11 @@
 			this.SideTab = setSideTab;
 		};
 	});
+	
+	app.directive("rockDodgeBody",['$window',function($window){
+		return{
+			restrict:'E',
+			templateUrl:"templates/rock-dodge-body.html"
+		};
+	}]);
+})();
