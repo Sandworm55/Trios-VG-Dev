@@ -11,8 +11,8 @@
 
 	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	  <ul class="nav navbar-nav">
-		<li ng-class="{ active:tab.isSet(1) }"><a href ng-click="tab.setTab(1)">Home</a></li>
-		<li ng-class="{ active:tab.isSet(2) }"><a href ng-click="tab.setTab(2)">Extra Fun Stuff</a></li>
+		<li ng-class="{ active:tab.isSet(1) }"><a href ng-click="sideTab.setSideTab(0);tab.setTab(1)">Home</a></li>
+		<li ng-class="{ active:tab.isSet(2) }"><a href ng-click="sideTab.setSideTab(0);tab.setTab(2)">Extra Fun Stuff</a></li>
 		<li  	ng-class="{ active:!sideTab.isSetSide(0) }" 
 				class="dropdown">
 		
@@ -24,8 +24,8 @@
 				aria-expanded="false">Side Projects<span class="caret"></span></a>
 				
 		  <ul class="dropdown-menu">
-			<li ng-class="{ active:sideTab.isSetSide(1) }"><a href ng-click="sideTab.setSideTab(1)">Dodge Dat Rock</a></li>
-			<li ng-class="{ active:sideTab.isSetSide(2) }"><a href ng-click="sideTab.setSideTab(2)">Coming Soon!</a></li>
+			<li ng-class="{ active:sideTab.isSetSide(1) }"><a href ng-click="sideTab.setSideTab(1);tab.setTab(0)">Dodge Dat Rock</a></li>
+			<li ng-class="{ active:sideTab.isSetSide(2) }"><a href ng-click="sideTab.setSideTab(2);tab.setTab(0)">Coming Soon!</a></li>
 		  </ul>
 		</li>
 		<li  ng-class="{ active:tab.isSet(4) }" 
