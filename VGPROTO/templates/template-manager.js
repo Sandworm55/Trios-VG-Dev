@@ -31,7 +31,6 @@
 
 		this.setTab = function(setTab) {
 			this.tab = setTab;
-			console.log("tab:"+this.tab);
 		};
 	});
 	
@@ -44,7 +43,6 @@
 
 		this.setSideTab = function(setSideTab) {
 			this.SideTab = setSideTab;
-			console.log("SideTab:"+this.SideTab);
 		};
 	});	
 	
@@ -57,7 +55,6 @@
 
 		this.setAssignTab = function(setAssignTab) {
 			this.AssignTab = setAssignTab;
-			console.log("AssignTab:"+this.AssignTab);
 		};
 	});
 	

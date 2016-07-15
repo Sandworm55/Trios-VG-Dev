@@ -13,16 +13,49 @@
 .navbar{
 	margin-bottom:0px;
 }
+
 #game,.MakeItBig{
 	height:100%;
 	width:100%;
 }
+
 #game{
 	background:black;
 	color:white;
 	font-size:18px;
 }
+
 .title{
 	margin-top:0;
 	padding-top:20;
+	font-size: 30px;
+}
+
+p{
+	margin:0 20px;
+}
+
+a{
+	color:white;
+	text-decoration:none;
+}
+
+a:hover{
+	text-decoration:underline overline line-through;
+	color:white;
+}
+
+a.button{
+	background:#185DA8;
+	border-radius:5px;
+	font-size:30px;
+	display: block;
+	width:200px;
+	text-align:center;
+	margin:40px 0 0 270px;
+}
+
+a.button:hover{
+	background:#2488f5;
+	
 }
