@@ -31,6 +31,7 @@
 
 		this.setTab = function(setTab) {
 			this.tab = setTab;
+			console.log("tab:"+this.tab);
 		};
 	});
 	
@@ -43,6 +44,20 @@
 
 		this.setSideTab = function(setSideTab) {
 			this.SideTab = setSideTab;
+			console.log("SideTab:"+this.SideTab);
+		};
+	});	
+	
+	app.controller("AssignTabController", function() {
+		this.AssignTab = 0;
+
+		this.isSetAssign = function(checkAssignTab) {
+			return this.AssignTab === checkAssignTab;
+		};
+
+		this.setAssignTab = function(setAssignTab) {
+			this.AssignTab = setAssignTab;
+			console.log("AssignTab:"+this.AssignTab);
 		};
 	});
 	
@@ -50,6 +65,13 @@
 		return{
 			restrict:'E',
 			templateUrl:"templates/rock-dodge-body.html"
+		};
+	}]);	
+	
+	app.directive("asteroidAvoid",['$window',function($window){
+		return{
+			restrict:'A',
+			templateUrl:"templates/asteroid-avoid.html"
 		};
 	}]);
 })();
