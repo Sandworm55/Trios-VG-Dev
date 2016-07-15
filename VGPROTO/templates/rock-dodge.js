@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	
      var canvas = $("#myCanvas");
      var ctx = canvas.get(0).getContext("2d");
 
@@ -13,7 +14,7 @@ $(document).ready(function() {
 
      function resizeCanvas() {
          canvas.attr("width", $(window).get(0).innerWidth);
-         canvas.attr("height", $(window).get(0).innerHeight);
+         canvas.attr("height", ($(window).get(0).innerHeight)-52);
 
          ctx.fillRect(0, 0, canvas.width(), canvas.height());
      }
