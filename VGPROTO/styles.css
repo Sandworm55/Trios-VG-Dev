@@ -23,6 +23,25 @@
 	background:black;
 	color:white;
 	font-size:18px;
+	height: 600px;
+	width:800px;
+	left:50%;
+	top:50%;
+	position: relative;
+	margin:-350px 0 0 -400px;
+}
+
+#gameUi{
+	height:600px;
+	width:800px;
+	position:absolute;
+}
+
+#gameIntro, #gameComplete{
+	background: rgba(0,0,0,0.5);
+	margin-top:100px;
+	padding: 40px 0;
+	text-align:center;
 }
 
 .title{
