@@ -1,15 +1,13 @@
 $(document).ready(function() {
 
-	var numOfAsteroids = 50;
-
 	init();//initilazes variales
 
 	//Logic calls
 	
 	resizeCanvas();
 	$(window).resize(resizeCanvas);
-
-	spawnAsteroids(numOfAsteroids);
+	
+	spawnAsteroids(200);
 
 	//calls a looping function
 	animate();
@@ -34,7 +32,7 @@ $(document).ready(function() {
 			checkAsteroidToAsteroidColision(tempAsteroid,i);
 
 			drawAsteroid(tempAsteroid);
-
+			drawButton(start);
 		}
 
 		setTimeout(animate, 33);
@@ -50,14 +48,51 @@ $(document).ready(function() {
 		asteroids = new Array();
 			
 		//Class declarations
-		Asteroid = function(x, y, radius, vx, vy) 
+		Asteroid = function(x, y, radius, vx, vy, mass) 
 		{
 			this.x = x;
 			this.y = y;
 			this.radius = radius;
 			this.vx = vx;
 			this.vy = vy;
+			this.mass = mass;
 		}
+		
+		myButton = function(color)
+		{
+			this.x = 100;
+			this.y = 50;
+			this.width = 90;
+			this.height = 45;
+			this.rgb = color;
+		}
+		
+		start = new myButton("green");
+		stop = new myButton("red");
+		
+		// canvas.addEventListener('mousemove', function(evt) 
+		// {
+			// var mousePos = getMousePos(canvas, evt);
+			// var message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;
+			// writeMessage(canvas, message);
+		// }, false);
+	}
+	
+	function drawButton(buttonObj)
+	{
+		var oldColor = ctx.fillStyle;
+		ctx.fillStyle = buttonObj.rgb;
+		ctx.fillRect (buttonObj.x, buttonObj.y, buttonObj.width, buttonObj.height);
+		
+		ctx.fillStyle = oldColor;
+	}
+	
+	function checkIfInsideButtonCoordinates(buttonObj, mouseX, mouseY)
+	{
+		if(((mouseX > buttonObj.x) && (mouseX < (buttonObj.x + buttonObj.width))) && ((mouseY > buttonObj.y) && (mouseY < (buttonObj.y + buttonObj.height))))
+			return true;
+		else
+			return false;
 	}
 	
 	//switch color to black then fills canvas, switch to white after
@@ -86,9 +121,22 @@ $(document).ready(function() {
 			var y = 20 + (Math.random() * (canvas.height() - 40));
 			var vx = Math.random() * 40 - 20;
 			var vy = Math.random() * 40 - 20;
+			var mass = radius / 2;
 
 			asteroids.push(new Asteroid(x, y, radius, vx, vy));
 		}
+	}
+	
+
+	
+	function getMousePos(canvas, evt) 
+	{
+		// var rect = canvas.getBoundingClientRect();
+		// return 
+		// {
+			// x: evt.clientX - rect.left,
+			// y: evt.clientY - rect.top
+		// };
 	}
 	
 	function drawAsteroid(tempAsteroidVar)
@@ -116,39 +164,65 @@ $(document).ready(function() {
 
 			if (distance < tempAsteroid2.radius + tempAsteroidVar.radius)
 			{
-				tempAsteroidVar.vx *= -1;
-				tempAsteroidVar.vy *= -1;
-				tempAsteroid2.vx *= -1;
-				tempAsteroid2.vy *= -1;
+				var angle = Math.atan2(dy,dx);
+				var sine = Math.sin(angle);
+				var cosine = Math.cos(angle);
+				
+				var x = 0;
+				var y = 0;
+				
+				var x2 = dx * cosine + dy * sine;
+				var y2 = dy * cosine - dx * sine;
+				
+				var vx = tempAsteroidVar.vx * cosine + tempAsteroidVar.vy * sine;
+				var vy = tempAsteroidVar.vy * cosine - tempAsteroidVar.vx * sine;
+				var vx2 = tempAsteroid2.vx * cosine + tempAsteroid2.vy * sine;
+				var vy2 = tempAsteroid2.vy * cosine - tempAsteroid2.vx * sine;
+			
+				var vTotal = vx - vx2;
+				vx = ((tempAsteroidVar.mass - tempAsteroid2.mass) * vx + 2 * tempAsteroid2.mass * vx2) / (tempAsteroidVar.mass + tempAsteroid2.mass);
+				vx2 = vTotal + vx;
+				
+				x2 = x + (tempAsteroidVar.radius + tempAsteroid2.radius);
+				
+				tempAsteroidVar.x = tempAsteroidVar.x + (x * cosine - y * sine);
+				tempAsteroidVar.y = tempAsteroidVar.y + (y * cosine + x * sine);
+				tempAsteroid2.x = tempAsteroidVar.x + (x2 * cosine - y2 * sine);
+				tempAsteroid2.y = tempAsteroidVar.y + (y2 * cosine + x2 * sine);
+				
+				tempAsteroidVar.vx = vx * cosine - vy * sine;
+				tempAsteroidVar.vy = vy * cosine + vx * sine;
+				tempAsteroid2.vx = vx2 * cosine - vy2 * sine;
+				tempAsteroid2.vy = vy2 * cosine + vx2 * sine;
 			}
 		}
 	}
 	
-	function leftRightWallCollision(tempAsteroid)
+	function leftRightWallCollision(tempAsteroidVar)
 	{
-		if (tempAsteroid.x - tempAsteroid.radius < 0) 
+		if (tempAsteroidVar.x - tempAsteroidVar.radius < 0) 
 		{
-			tempAsteroid.x = tempAsteroid.radius;
-			tempAsteroid.vx *= -1;
+			tempAsteroidVar.x = tempAsteroidVar.radius;
+			tempAsteroidVar.vx *= -1;
 		} 
-		else if (tempAsteroid.x + tempAsteroid.radius > canvas.width()) 
+		else if (tempAsteroidVar.x + tempAsteroidVar.radius > canvas.width()) 
 		{
-			tempAsteroid.x = canvas.width() - tempAsteroid.radius;
-			tempAsteroid.vx *= -1;
+			tempAsteroidVar.x = canvas.width() - tempAsteroidVar.radius;
+			tempAsteroidVar.vx *= -1;
 		}
 	}
 	
-	function topBottomWallCollision(tempAsteroid)
+	function topBottomWallCollision(tempAsteroidVar)
 	{
-		if (tempAsteroid.y - tempAsteroid.radius < 0) 
+		if (tempAsteroidVar.y - tempAsteroidVar.radius < 0) 
 		{
-			tempAsteroid.y = tempAsteroid.radius;
-			tempAsteroid.vy *= -1;
+			tempAsteroidVar.y = tempAsteroidVar.radius;
+			tempAsteroidVar.vy *= -1;
 		} 
-		else if (tempAsteroid.y + tempAsteroid.radius > canvas.height()) 
+		else if (tempAsteroidVar.y + tempAsteroidVar.radius > canvas.height()) 
 		{
-			tempAsteroid.y = canvas.height() - tempAsteroid.radius;
-			tempAsteroid.vy *= -1;
+			tempAsteroidVar.y = canvas.height() - tempAsteroidVar.radius;
+			tempAsteroidVar.vy *= -1;
 		}
 	}
 	
