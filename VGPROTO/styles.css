@@ -1,13 +1,21 @@
-#canvasHome,body,html{
+contentBox *{
 	margin: 0;
 	padding: 0;
+}
+
+#canvasHome,body,html{
+
 	height:100%;
 	width:100%;
 	font-family:Verdana,Arial,sans-serif;
 }
 
-#canvasHome canvas{
+canvas{
 	display:block
+}
+
+#asteroidAvoid{
+	background: #001022;
 }
 
 .navbar{
@@ -31,7 +39,7 @@
 	margin:-350px 0 0 -400px;
 }
 
-#gameUi{
+#gameUI{
 	height:600px;
 	width:800px;
 	position:absolute;
@@ -42,6 +50,13 @@
 	margin-top:100px;
 	padding: 40px 0;
 	text-align:center;
+}
+
+#gameStats .gameReset{
+	margin:20px 20px 0 0;
+	position:absolute;
+	right:0;
+	top:0;
 }
 
 .title{
