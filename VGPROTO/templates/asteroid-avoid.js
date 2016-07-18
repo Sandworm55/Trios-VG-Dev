@@ -34,6 +34,8 @@ $(document).ready(function(){
 		this.y = y;
 		this.radius = radius;
 		this.vx = vx;
+		this.m = radius * (Math.random()*2);
+		this.d = radius/this.m;
 	}
 	
 	// Player object
@@ -95,6 +97,7 @@ $(document).ready(function(){
 			var vx = -5 - Math.random() * 5;
 			
 			asteroids.push(new Asteroid(x,y,radius,vx));
+			console.log(asteroids[i]);
 		}
 		
 		$(window).keydown(function(e)
