@@ -96,5 +96,42 @@ $(document).ready(function(){
 			
 			asteroids.push(new Asteroid(x,y,radius,vx));
 		}
+		
+		$(window).keydown(function(e)
+		{
+			var keyCode = e.keyCodel
+			
+			if (playGame == false)
+			{
+				playGame = true;
+				
+				animate();
+				//timer();
+			}
+		});
+		
+		animate();
+	}
+	
+	function animate()
+	{
+		ctx.clearRect(0,0,canvasWidth,canvasHeight);
+		
+		ctx.fillStyle = "white";
+		for (var i = 0; i < asteroids.length; i++)
+		{
+			var tempAsteroid = asteroids[i];
+			
+			tempAsteroid.x += tempAsteroid.vx;
+			
+			ctx.beginPath();
+			ctx.arc(tempAsteroid.x,tempAsteroid.y,tempAsteroid.radius,0,Math.PI * 2, false)
+			ctx.fill();
+		}
+		
+		if (playGame == true)
+		{
+			setTimeout(animate,33);
+		}
 	}
 });
