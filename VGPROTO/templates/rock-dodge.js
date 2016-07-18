@@ -7,7 +7,7 @@ $(document).ready(function() {
 	resizeCanvas();
 	$(window).resize(resizeCanvas);
 	
-	spawnAsteroids(200);
+	spawnAsteroids(50);
 
 	//calls a looping function
 	animate();
