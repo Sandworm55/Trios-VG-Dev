@@ -26,4 +26,35 @@ $(document).ready(function(){
 	var arrowUp 	= 38;
 	var arrowRight 	= 39;
 	var arrowDown 	= 40;
+	
+	// Asteroid object
+	var Asteroid = function(x,y,radius,vx)
+	{
+		this.x = x;
+		this.y = y;
+		this.radius = radius;
+		this.vx = vx;
+	}
+	
+	// Player object
+	var Player = function(x,y)
+	{
+		this.x = x;
+		this.y = y;
+		this.w = 24;
+		this.h = 24;
+		
+		this.halfWidth = this.w / 2;
+		this.halfHeight = this.h / 2;
+		
+		this.vx = 0;
+		this.vy = 0;
+		
+		this.moveRight = false;
+		this.moveUp = false;
+		this.moveDown = false;
+		
+		this.flameLength = 20;
+		
+	}
 });
