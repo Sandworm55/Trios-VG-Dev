@@ -10,9 +10,9 @@ $(document).ready(function(){
 	var uiIntro 	= $("#gameIntro");
 	var uiStats 	= $("#gameStats");
 	var uiComplete 	= $("#gameComplete");
-	var uiPlay 		= $("gamePlay");
-	var btReset 	= $(".gameReset");
-	var btScore 	= $(".gameScore");
+	var uiPlay 		= $("#gamePlay");
+	var uiReset 	= $(".gameReset");
+	var uiScore 	= $(".gameScore");
 	
 	// Game settings
 	var playGame;	// boolean flag
@@ -44,17 +44,57 @@ $(document).ready(function(){
 		this.w = 24;
 		this.h = 24;
 		
-		this.halfWidth = this.w / 2;
+		this.halfWidth 	= this.w / 2;
 		this.halfHeight = this.h / 2;
 		
 		this.vx = 0;
 		this.vy = 0;
 		
-		this.moveRight = false;
-		this.moveUp = false;
-		this.moveDown = false;
+		this.moveRight 	= false;
+		this.moveUp 	= false;
+		this.moveDown 	= false;
 		
 		this.flameLength = 20;
 		
+	}
+	
+	init();
+	
+	function init()
+	{
+		uiStats.hide();
+		uiComplete.hide();
+		
+		uiPlay.click(function(e)
+		{
+			e.preventDefault();
+			uiIntro.hide();
+			startGame();
+		});
+	}
+	
+	function startGame()
+	{
+		// reset game settings to initial values
+		uiScore.html("0");
+		uiStats.show();
+		
+		playGame 	= false;
+		asteroids 	= new Array();
+		numAseroids = 10;
+		score 		= 0;
+		
+		player 		= new Player(150,canvasHeight / 2);
+		
+		for (var i = 0; i < numAseroids; i++)
+		{
+			var radius 	= 5 + Math.random() * 10;
+			var y 		= Math.floor(Math.random()* canvasHeight);
+			var x 		= canvasWidth + radius + Math.floor(Math.random() * canvasWidth);
+			
+			var vx = -5 - Math.random() * 5;
+			
+			asteroids.push(new Asteroid(x,y,radius,vx));
+		}
 	}
 });
