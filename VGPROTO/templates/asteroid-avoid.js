@@ -22,6 +22,10 @@ $(document).ready(function(){
 	var score;		// the current score
 	var scoreTimeout;//the timer object to increment score
 
+	//Game sounds
+	var soundBackground = $("#gameSoundBackground").get(0);
+	var soundDeath = $("#gameSoundDeath").get(0);
+	
 	// Keyboard keycodes
 	var arrowUp 	= 38;
 	var arrowRight 	= 39;
@@ -84,6 +88,16 @@ $(document).ready(function(){
 			uiIntro.hide();
 			startGame();
 		});
+		
+		uiReset.click(function(e)
+		{
+			e.preventDefault();
+			uiComplete.hide();
+			$(window).unbind("keyup");
+			$(window).unbind("keydown");
+			clearTimeout(scoreTimeout);
+			startGame();
+		});
 	}
 	
 	function startGame()
@@ -113,12 +127,16 @@ $(document).ready(function(){
 		$(window).keydown(function(e)
 		{
 			var keyCode = e.keyCode;
+			
 			if (!playGame)
 			{
 				playGame = true;
 				
 				animate();
 				timer();
+				
+				soundBackground.currentTime = 0;
+				soundBackground.play();
 			}
 			
 			if (keyCode == arrowRight)
@@ -170,6 +188,8 @@ $(document).ready(function(){
 				uiStats.hide();
 				uiComplete.show();
 				playGame = false;
+				soundBackground.pause();
+				soundDeath.play();
 				
 				$(window).unbind("keydown");
 				$(window).unbind("keyup");
