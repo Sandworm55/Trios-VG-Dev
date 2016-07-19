@@ -58,6 +58,17 @@ $(document).ready(function(){
 		
 		this.flameLength = 20;
 		
+		this.draw = function()
+		{
+			ctx.fillStyle = "rgb(255,0,0)";
+			ctx.beginPath();
+			ctx.moveTo(player.x + player.halfWidth, player.y);
+			ctx.lineTo(player.x - player.halfWidth, player.y - player.halfHeight);
+			ctx.lineTo(player.x - player.halfWidth, player.y + player.halfHeight);
+			ctx.closePath();
+			ctx.fill();
+		}
+		
 	}
 	
 	init();
@@ -90,27 +101,50 @@ $(document).ready(function(){
 		
 		for (var i = 0; i < numAseroids; i++)
 		{
-			var radius 	= 5 + Math.random() * 10;
+			var radius 	= getRadius();
 			var y 		= Math.floor(Math.random()* canvasHeight);
 			var x 		= canvasWidth + radius + Math.floor(Math.random() * canvasWidth);
 			
 			var vx = -5 - Math.random() * 5;
 			
 			asteroids.push(new Asteroid(x,y,radius,vx));
-			console.log(asteroids[i]);
 		}
 		
 		$(window).keydown(function(e)
 		{
-			var keyCode = e.keyCodel
-			
-			if (playGame == false)
+			var keyCode = e.keyCode;
+			if (!playGame)
 			{
 				playGame = true;
 				
 				animate();
-				//timer();
+				timer();
 			}
+			
+			if (keyCode == arrowRight)
+					player.moveRight = true;
+
+			if (keyCode == arrowUp)
+					player.moveUp = true;
+				
+			if (keyCode == arrowDown)
+					player.moveDown = true;
+
+			
+		});
+		
+		$(window).keyup(function(e)
+		{
+			var keyCode = e.keyCode;
+			
+			if (keyCode == arrowRight)
+					player.moveRight = false;
+
+			if (keyCode == arrowUp)
+					player.moveUp = false;
+				
+			if (keyCode == arrowDown)
+					player.moveDown = false;
 		});
 		
 		animate();
@@ -127,14 +161,119 @@ $(document).ready(function(){
 			
 			tempAsteroid.x += tempAsteroid.vx;
 			
+			var dx = player.x - tempAsteroid.x;
+			var dy = player.y - tempAsteroid.y;
+			var distance = Math.sqrt(dx*dx+dy*dy);	
+			
+			if (player.halfWidth + tempAsteroid.radius > distance)
+			{
+				uiStats.hide();
+				uiComplete.show();
+				playGame = false;
+				
+				$(window).unbind("keydown");
+				$(window).unbind("keyup");
+				
+				clearTimeout(scoreTimeout);
+			}
+			
+			if (tempAsteroid.x + tempAsteroid.radius <= 0)
+			{
+				recycleAsteroid(tempAsteroid);
+			}
+			
 			ctx.beginPath();
-			ctx.arc(tempAsteroid.x,tempAsteroid.y,tempAsteroid.radius,0,Math.PI * 2, false)
+			ctx.arc(tempAsteroid.x,tempAsteroid.y,tempAsteroid.radius,0,Math.PI * 2, false);
 			ctx.fill();
 		}
 		
-		if (playGame == true)
+		player.vy = 0;
+		player.vx = 0;
+		
+		if (player.moveRight)
+			player.vx = 3;
+		else if(!player.moveRight)
+			player.vx = -3;
+		
+		if (player.moveUp)
+			player.vy = -3;
+		else if (player.moveDown)
+			player.vy = 3;
+		
+		player.x += player.vx;
+		player.y += player.vy;
+		
+		
+		if(player.x - player.halfWidth < 20)
+			player.x = 20 + player.halfWidth;
+		else if (player.x + player.halfWidth > canvasWidth - 20)
+			player.x = canvasWidth - 20 - player.halfWidth;
+			
+		if (player.y - player.halfHeight < 20)
+			player.y = 20 + player.halfHeight;
+		else if ( player.y + player.halfHeight > canvasHeight - 20)
+			player.y = canvasHeight - 20 - player.halfHeight;
+		
+		player.draw();
+		
+		while(asteroids.length < numAseroids)
+		{
+			var radius = getRadius();
+			var x = getWidth();
+			var y = getHeight();
+			var vx= -5-(Math.random()*5);
+			
+			asteroids.push(new Asteroid(x,y,radius,vx));
+		}
+		
+		if (playGame)
 		{
 			setTimeout(animate,33);
 		}
+	}
+	
+	function timer()
+	{
+		if (playGame)
+		{
+			scoreTimeout = setTimeout(function(){
+				if (playGame)
+				{
+					uiScore.html(++score);
+				
+					for (i = 0;i<asteroids.length;i++)
+						console.log(asteroids[i]);
+					
+					if (score % 5 == 0)
+					{
+						numAseroids += 5;
+					}
+					timer();
+				}
+			},1000);
+		}
+	}
+	
+	function recycleAsteroid(tempAsteroid)
+	{
+		tempAsteroid.radius = getRadius();
+		tempAsteroid.x 		= canvasWidth + tempAsteroid.radius;
+		tempAsteroid.y 		= getHeight();
+		tempAsteroid.vx 	= -5 - Math.random() * 5;
+	}
+	
+	function getRadius()
+	{
+		return 5 + Math.random() * 10;
+	}
+	
+	function getWidth()
+	{
+		return Math.floor(Math.random()*canvasWidth)+canvasWidth+30;
+	}
+	
+	function getHeight()
+	{
+		return Math.floor(Math.random()*canvasHeight);
 	}
 });

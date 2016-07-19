@@ -21,17 +21,18 @@
 		<div class="MakeItBig" ng-controller="SideTabController as sideTab">
 			<div class="MakeItBig" ng-controller="AssignTabController as assignTab">
 				<nav-bar></nav-bar>
-				
-				<home-body ng-show="tab.isSet(1)">
-				</home-body>
-				
-				<extra-stuff-body ng-show="tab.isSet(2)">
-				</extra-stuff-body>
-				
-				<div id="canvasHome" class="MakeItBig" >
-					<rock-dodge-body ng-show="sideTab.isSetSide(1)">
-					</rock-dodge-body>
-					<div asteroid-avoid class="MakeItBig" ng-show="assignTab.isSetAssign(1)">
+				<div id="contentBox">
+					<home-body ng-show="tab.isSet(1)">
+					</home-body>
+					
+					<extra-stuff-body ng-show="tab.isSet(2)">
+					</extra-stuff-body>
+					
+					<div id="canvasHome" class="MakeItBig" >
+						<rock-dodge-body ng-show="sideTab.isSetSide(1)">
+						</rock-dodge-body>
+						<div asteroid-avoid class="MakeItBig" ng-show="assignTab.isSetAssign(1)">
+						</div>
 					</div>
 				</div>
 			</div>
