@@ -71,4 +71,11 @@
 			templateUrl:"templates/asteroid-avoid.html"
 		};
 	}]);
+	
+	app.directive("numberGuessing",['$window',function($window){
+		return{
+			restrict:'E',
+			templateUrl:"templates/number-guessing.html"
+		};
+	}]);
 })();
