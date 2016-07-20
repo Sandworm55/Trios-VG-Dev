@@ -7,7 +7,8 @@ $(document).ready(function()
 	var playerGuess 		= 0;
 	var guessesRemaining 	= 10;
 	var guessesMade 		= 0;
-	var gameState 			= ""
+	var gameState 			= "";
+	var gameWon				= false;
 	
 	var input 	= document.querySelector("#inputField");
 	var output 	= document.querySelector("#outputField");
@@ -34,8 +35,27 @@ $(document).ready(function()
 			output.innerHTML = "That's too high." + gameState;
 		else if (playerGuess < mysteryNumber)
 			output.innerHTML = "That's too low" + gameState;
-		else
-			output.innerHTML = "You got it!" + gameState;
+		else if (playerGuess == mysteryNumber)
+			gameWon = true;
+		
+		if (guessesRemaining < 1 || gameWon == true)
+			endGame();
 	}
 	
+	function endGame()
+	{
+		if (gameWon)
+			output.innerHTML = 
+				"Yes, it's " + mysteryNumber + "!" + "<br>" + 
+				"It took you " + guessesMade + " guesse" + ((guessesMade==1)?".":"s.");
+		else
+			output.innerHTML = 
+				"No more guesses left!" + "<br>" + 
+				"The number was: " + mysteryNumber + "."; 
+				
+		button.removeEventListener("click",clickHandler,false);
+		button.disabled = true;
+		
+		input.disabled = true;
+	}
 });
