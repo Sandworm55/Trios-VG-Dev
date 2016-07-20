@@ -66,30 +66,30 @@ canvas{
 }
 
 p{
-	margin:0 20px;
+	margin:			0 20px;
 }
 
 a{
-	color:white;
+	color:			white;
 	text-decoration:none;
 }
 
 a:hover{
 	text-decoration:none;
-	color:white;
+	color:			white;
 }
 
 a.button{
-	background:#185DA8;
-	border-radius:5px;
-	font-size:30px;
-	display: block;
-	width:200px;
-	text-align:center;
-	margin:40px 0 0 270px;
+	background:		#185DA8;
+	border-radius:	5px;
+	font-size:		30px;
+	display: 		block;
+	width:			200px;
+	text-align:		center;
+	margin:			40px 0 0 270px;
 }
 
 a.button:hover{
-	background:#2488f5;
+	background:		#2488f5;
 	
 }

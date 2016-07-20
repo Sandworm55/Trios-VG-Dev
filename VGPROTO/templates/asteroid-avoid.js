@@ -14,17 +14,23 @@ $(document).ready(function(){
 	var uiReset 	= $(".gameReset");
 	var uiScore 	= $(".gameScore");
 	
+	//Constants
+	var verticalSpeed	= 7;
+	var horizontalSpeed	= 3;
+	
+	
 	// Game settings
 	var playGame;	// boolean flag
 	var asteroids;	// array that holds all the asteroids
-	var numAseroids;// number of active asteroids
+	var numAsteroids;// number of active asteroids
 	var player;		// the player spaceship
 	var score;		// the current score
 	var scoreTimeout;//the timer object to increment score
 
 	//Game sounds
 	var soundBackground = $("#gameSoundBackground").get(0);
-	var soundDeath = $("#gameSoundDeath").get(0);
+	var soundDeath 		= $("#gameSoundDeath").get(0);
+	var soundThrust 	= $("#gameSoundThrust").get(0);
 	
 	// Keyboard keycodes
 	var arrowUp 	= 38;
@@ -34,12 +40,12 @@ $(document).ready(function(){
 	// Asteroid object
 	var Asteroid = function(x,y,radius,vx)
 	{
-		this.x = x;
-		this.y = y;
+		this.x 		= x;
+		this.y 		= y;
 		this.radius = radius;
-		this.vx = vx;
-		this.m = radius * (Math.random()*2);
-		this.d = radius/this.m;
+		this.vx 	= vx;
+		this.m 		= radius * (Math.random()*2);
+		this.d 		= radius/this.m;
 	}
 	
 	// Player object
@@ -60,10 +66,17 @@ $(document).ready(function(){
 		this.moveUp 	= false;
 		this.moveDown 	= false;
 		
-		this.flameLength = 20;
+		this.flameLength = 25;
+		this.flameGrow = false;
 		
 		this.draw = function()
 		{
+			drawFlame("red",this.flameLength);
+			drawFlame("orange",(this.flameLength-(this.flameLength/4)));
+			drawFlame("yellow",(this.flameLength-(this.flameLength/2)));
+			
+			flamePulse();
+			
 			ctx.fillStyle = "rgb(255,0,0)";
 			ctx.beginPath();
 			ctx.moveTo(player.x + player.halfWidth, player.y);
@@ -73,6 +86,42 @@ $(document).ready(function(){
 			ctx.fill();
 		}
 		
+	}
+	
+	//pulses the size of the flame
+	function flamePulse()
+	{
+		if (player.flameLength == 25)
+			this.flameGrow = false;
+		else if (player.flameLength == 20)
+			this.flameGrow = true;
+			
+		if (this.flameGrow)
+			player.flameLength += .5;
+		else
+			player.flameLength -= .5;
+	}
+	
+	//Draws flame based on the color and length provided
+	function drawFlame(color,length)
+	{
+		if (player.moveRight)
+			{
+				ctx.save();
+				ctx.translate(player.x,player.y);
+				
+				
+				
+				ctx.fillStyle = color;
+				ctx.beginPath();
+				ctx.moveTo(-player.halfWidth - length, 0);
+				ctx.lineTo(-player.halfWidth, -(length/4));
+				ctx.lineTo(-player.halfWidth, length/4);
+				ctx.closePath();
+				ctx.fill();
+				
+				ctx.restore();
+			}
 	}
 	
 	init();
@@ -108,12 +157,12 @@ $(document).ready(function(){
 		
 		playGame 	= false;
 		asteroids 	= new Array();
-		numAseroids = 10;
+		numAsteroids = 10;
 		score 		= 0;
 		
 		player 		= new Player(150,canvasHeight / 2);
 		
-		for (var i = 0; i < numAseroids; i++)
+		for (var i = 0; i < numAsteroids; i++)
 		{
 			var radius 	= getRadius();
 			var y 		= Math.floor(Math.random()* canvasHeight);
@@ -136,17 +185,26 @@ $(document).ready(function(){
 				timer();
 				
 				soundBackground.currentTime = 0;
+				soundDeath.currentTime = 0;
+				soundThrust.currentTime = 0;
 				soundBackground.play();
 			}
 			
 			if (keyCode == arrowRight)
-					player.moveRight = true;
-
+			{
+				player.moveRight = true;
+				
+				if (soundThrust.paused)
+				{
+					soundThrust.currentTime = 0;
+					soundThrust.play();
+				}
+			}
 			if (keyCode == arrowUp)
-					player.moveUp = true;
+				player.moveUp = true;
 				
 			if (keyCode == arrowDown)
-					player.moveDown = true;
+				player.moveDown = true;
 
 			
 		});
@@ -156,13 +214,16 @@ $(document).ready(function(){
 			var keyCode = e.keyCode;
 			
 			if (keyCode == arrowRight)
-					player.moveRight = false;
-
+			{
+				player.moveRight = false;
+				soundThrust.pause();
+			}
+			
 			if (keyCode == arrowUp)
-					player.moveUp = false;
+				player.moveUp = false;
 				
 			if (keyCode == arrowDown)
-					player.moveDown = false;
+				player.moveDown = false;
 		});
 		
 		animate();
@@ -188,8 +249,10 @@ $(document).ready(function(){
 				uiStats.hide();
 				uiComplete.show();
 				playGame = false;
+				
 				soundBackground.pause();
 				soundDeath.play();
+				soundThrust.pause();
 				
 				$(window).unbind("keydown");
 				$(window).unbind("keyup");
@@ -211,14 +274,15 @@ $(document).ready(function(){
 		player.vx = 0;
 		
 		if (player.moveRight)
-			player.vx = 3;
+			player.vx = horizontalSpeed;
+			
 		else if(!player.moveRight)
-			player.vx = -3;
+			player.vx = -horizontalSpeed;
 		
 		if (player.moveUp)
-			player.vy = -3;
+			player.vy = -verticalSpeed;
 		else if (player.moveDown)
-			player.vy = 3;
+			player.vy = verticalSpeed;
 		
 		player.x += player.vx;
 		player.y += player.vy;
@@ -234,10 +298,12 @@ $(document).ready(function(){
 		else if ( player.y + player.halfHeight > canvasHeight - 20)
 			player.y = canvasHeight - 20 - player.halfHeight;
 		
+		
+		
 		player.draw();
 		
-		while(asteroids.length < numAseroids)
-		{
+		while(asteroids.length < numAsteroids)
+		{ 
 			var radius = getRadius();
 			var x = getWidth();
 			var y = getHeight();
@@ -260,13 +326,10 @@ $(document).ready(function(){
 				if (playGame)
 				{
 					uiScore.html(++score);
-				
-					for (i = 0;i<asteroids.length;i++)
-						console.log(asteroids[i]);
 					
 					if (score % 5 == 0)
 					{
-						numAseroids += 5;
+						numAsteroids += 5;
 					}
 					timer();
 				}
