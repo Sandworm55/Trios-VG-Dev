@@ -78,4 +78,11 @@
 			templateUrl:"templates/number-guessing.html"
 		};
 	}]);
+    
+	app.directive("alienAttack",['$window',function($window){
+		return{
+			restrict:'E',
+			templateUrl:"AlienAttack/alien-attack.html"
+		};
+	}]);
 })();
