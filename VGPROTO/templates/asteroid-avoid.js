@@ -37,7 +37,14 @@ $(document).ready(function(){
 	var arrowRight 	= 39;
 	var arrowDown 	= 40;
 	
-	// Asteroid object
+	/**
+         * Asteroid object with cords, radius, and a velocity along x
+         * @param {int} x x cords
+         * @param {int} y y cords
+         * @param {int} radius radius of asteroid
+         * @param {int} vx velocity of asteroid
+         * @returns {asteroid-avoid_L1.Asteroid}
+         */
 	var Asteroid = function(x,y,radius,vx)
 	{
 		this.x 		= x;
