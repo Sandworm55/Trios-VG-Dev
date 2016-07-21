@@ -91,24 +91,61 @@ a.button{
 
 a.button:hover{
 	background:		#2488f5;
-	
+
 }
 
 @font-face{
-    src: url(AlienAttack/emulogic.ttf);
-    font-family: emulogic;
+	src: url(AlienAttack/emulogic.ttf);
+	font-family: emulogic;
 }
 
 #alien-attack *{
-    font-family: emulogic;
-    padding: 0px;
-    margin: 0px;
+	font-family: emulogic;
+	padding: 0px;
+	margin: 0px;
 }
 
 #alien-attack h1{
-    text-align: center;
-    font-size: 24px;
-    color: #FFBF00;
-    padding-bottom: 20px;
-    text-shadow: 3px 3px lime;
+	text-align: center;
+	font-size: 24px;
+	color: #FFBF00;
+	padding-bottom: 20px;
+	text-shadow: 3px 3px lime;
 }
+
+#alien-attack p{
+	text-align: center;
+	font-size: 12px;
+	padding-bottom: 20px;
+	color: #FFBF00;
+}
+
+#alien-attack input{
+	font-size: 15px;
+	background-color: black;
+	color: #ffbf00;
+	width: 75px;
+	padding: 5px 10px;
+	border-radius: 10px;
+}
+
+#alien-attack button{
+	font-size: 15px;
+	color: #ffbf00;
+	padding: 5px 10px;
+	background: black;
+	border: 2px solid lime;
+	border-radius: 10px;
+}
+
+#alien-attack button:hover{
+	background-color: #ffbf00;
+	color: black;
+}
+
+#alien-attack button:active{
+	transform: translate(3px,3px);
+	background-color: #9e7606;
+	color: black;
+}
+
