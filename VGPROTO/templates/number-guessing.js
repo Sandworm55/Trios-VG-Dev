@@ -19,7 +19,21 @@ $(document).ready(function()
 	function clickHandler()
 	{
 		console.log("click:"+playerGuess+ "real:"+mysteryNumber);
-		playGame();
+		validateInput();
+	}
+	
+	function validateInput()
+	{
+		playerGuess = parseInt(input.value);
+		
+		if(isNaN(playerGuess))
+		{
+			output.innerHTML = "Please enter a number.";
+		}
+		else
+		{
+			playGame();
+		}
 	}
 	
 	function playGame()
