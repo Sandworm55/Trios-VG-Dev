@@ -127,6 +127,7 @@ a.button:hover{
 	width: 75px;
 	padding: 5px 10px;
 	border-radius: 10px;
+	outline: none;
 }
 
 #alien-attack button{
@@ -136,6 +137,7 @@ a.button:hover{
 	background: black;
 	border: 2px solid lime;
 	border-radius: 10px;
+	outline: none;
 }
 
 #alien-attack button:hover{
@@ -148,4 +150,18 @@ a.button:hover{
 	background-color: #9e7606;
 	color: black;
 }
+
+#alien-attack{
+	width: 330px;
+	height: auto;
+	margin: 0 auto;
+	border: 1px solid black;
+	border-radius: 10px;
+	padding: 15px;
+
+	background: linear-gradient(top, #588063, #000000);
+	background: -webkit-linear-gradient(top, #588063, #000000);
+	background: -moz-linear-gradient(top, #588063, #000000);
+}
+
 
