@@ -200,3 +200,22 @@ a.button:hover{
 	top: 240px;
 	left: 145px;
 }
+
+#alien{
+	background-image: url(AlienAttack/alien.png);
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	top: 20px;
+	left: 80px;
+}
+
+#explosion{
+	background-image: url(AlienAttack/explosion.png);
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	display: none;
+}
