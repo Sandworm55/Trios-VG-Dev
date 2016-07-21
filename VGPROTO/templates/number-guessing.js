@@ -3,7 +3,7 @@ $(document).ready(function()
 {
 	console.log("GameLogic() loaded");
 	// Game variables
-	var mysteryNumber 		= 50;
+	var mysteryNumber 		= Math.floor(Math.random() * 100);
 	var playerGuess 		= 0;
 	var guessesRemaining 	= 10;
 	var guessesMade 		= 0;
