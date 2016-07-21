@@ -111,6 +111,9 @@ a.button:hover{
 	color: #FFBF00;
 	padding-bottom: 20px;
 	text-shadow: 3px 3px lime;
+	text-stroke: 1px #000;
+	-webkit-text-stroke: 1px #000;
+	-moz-text-stroke: 1px #000;
 }
 
 #alien-attack p{
@@ -164,4 +167,36 @@ a.button:hover{
 	background: -moz-linear-gradient(top, #588063, #000000);
 }
 
+#stage{
+	margin: 0 auto;
+	width: 300px;
+	height: 300px;
+	border: 1px solid lime;
+	margin-bottom: 20px;
+	box-shadow: 5px 5px 5px rgba(0,0,0,0.5);
+	position: relative;
+}
 
+#background{
+	background-image: url(AlienAttack/background.png);
+	width: 300px;
+	height: 300px;
+}
+
+#cannon{
+	background-image: url(AlienAttack/cannon.png);
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	top: 270px;
+	left: 140px;
+}
+
+#missile{
+	background-image: url(AlienAttack/missile.png);
+	width: 10px;
+	height: 10px;
+	position: absolute;
+	top: 240px;
+	left: 145px;
+}
