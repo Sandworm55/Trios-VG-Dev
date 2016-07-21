@@ -3,12 +3,13 @@ $(document).ready(function()
 {
 	console.log("GameLogic() loaded");
 	// Game variables
-	var mysteryNumber 		= Math.floor(Math.random() * 100);
-	var playerGuess 		= 0;
-	var guessesRemaining 	= 10;
-	var guessesMade 		= 0;
-	var gameState 			= "";
-	var gameWon				= false;
+        var ceiling             = 99;
+	var mysteryNumber       = Math.floor(Math.random() * ceiling + 1);
+	var playerGuess         = 0;
+	var guessesRemaining    = 10;
+	var guessesMade         = 0;
+	var gameState           = "";
+	var gameWon             = false;
 	
 	var input 	= document.querySelector("#inputField");
 	var output 	= document.querySelector("#outputField");
@@ -27,20 +28,18 @@ $(document).ready(function()
 		playerGuess = parseInt(input.value);
 		
 		if(isNaN(playerGuess))
-		{
-			output.innerHTML = "Please enter a number.";
-		}
+                    output.innerHTML = "Please enter a number.";
+                else if(playerGuess < 0 || playerGuess > ceiling)
+                    output.innerHTML = "Number not in range.";
 		else
-		{
-			playGame();
-		}
+                    playGame();
 	}
 	
 	function playGame()
 	{
 		guessesRemaining -= 1;
 		guessesMade += 1;
-		
+                
 		gameState = " Guess: " + guessesMade + ", Remaining: " + guessesRemaining;
 		
 		playerGuess = parseInt(input.value);
