@@ -3,11 +3,15 @@ $(document).ready(function ()
 
 	var cannon = document.querySelector("#cannon");
 	var alien = document.querySelector("#alien");
-	var missle = document.querySelector("#explosion");
+	var missile = document.querySelector("#missile");
+	var explosion = document.querySelector("#explosion");
 	var inputX = document.querySelector("#inputX");
 	var inputY = document.querySelector("#inputY");
 	var output = document.querySelector("#output");
-	var button = document.querySelector("#button");
+	var button = document.querySelector("#alien-attack button");
+
+	var alienWidth = parseInt($("#alien").css("width"));
+	var alienHeight = parseInt($("#alien").css("height"));
 
 	var alienX = 80;
 	var alienY = 20;
@@ -18,8 +22,10 @@ $(document).ready(function ()
 	var gameState = "";
 	var gameWon = false;
 
-	button.addEventListener("click", clickHandler);
+	console.log(parseInt($("#alien").css("width")));
 
+	button.addEventListener("click", clickHandler);
+	
 	function clickHandler()
 	{
 		validateInput();
@@ -49,6 +55,56 @@ $(document).ready(function ()
 	
 	function playGame()
 	{
+		shotsRemaining -= 1;
+		shotsMade += 1;
+		gameState = "Shots: " + shotsMade + ", Remaining: " + shotsRemaining;
 		
+		if (guessX >= alienX && guessX <= (alienX + alienWidth))
+		{
+			if (guessY >= alienY && guessY <= (alienY + alienHeight))
+			{
+				gameWon = true;
+				endGame();
+			}
+			else
+				output.innerHTML = "Miss! " + gameState;
+		}
+		else
+			output.innerHTML = "Miss! " + gameState;
+		
+		if(shotsRemaining < 1)
+			endGame();
+		
+		updateGraphics();
+	}
+	
+	function endGame()
+	{
+		if (gameWon)
+			output.innerHTML = "Hit! You saved the earth!" + "<br>" + "It only took you " + shotsMade + " shots";
+		else
+			output.innerHTML = "You lost!<br>" + "The earth was destroyed!";
+		
+		button.removeEventListener("click",clickHandler);
+		button.disabled = true;
+	}
+	
+	function updateGraphics()
+	{
+		missile.style.left = guessX + "px";
+		missile.style.top = guessY + "px";
+		cannon.style.left = guessX + "px";
+		alien.style.left = alienX + "px";
+		alien.style.top = alienY + "px";
+		
+		if (gameWon)
+		{
+			explosion.style.display = "block";
+			explosion.style.left = alienX + "px";
+			explosion.style.top = alienY + "px";
+			
+			alien.style.display = "none";
+			missile.style.display = "none";
+		}
 	}
 });
