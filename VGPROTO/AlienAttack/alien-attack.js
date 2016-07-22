@@ -75,6 +75,13 @@ $(document).ready(function ()
 		if(shotsRemaining < 1)
 			endGame();
 		
+		if (!gameWon)
+		{
+			alienY += getRandom(20,30);
+			alienX = getRandom(0,280);
+			console.log(alienX + " - " + alienY);
+		}
+		
 		updateGraphics();
 	}
 	
@@ -122,5 +129,16 @@ $(document).ready(function ()
 			return true;
 		else
 			return false;
+	}
+	
+	/**
+	 * gets a random int between bottom number and top provided
+	 * @param {int} bot lowest number you can get
+	 * @param {int} top highest number you can get
+	 * @returns {int} random result
+	 */
+	function getRandom(bot,top)
+	{
+		return Math.floor(Math.random()*(top + 1 - bot)) + bot;
 	}
 });
