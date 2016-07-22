@@ -129,6 +129,8 @@ a.button:hover{
 	color: #ffbf00;
 	width: 75px;
 	padding: 5px 10px;
+	text-align: center;
+	border: 2px solid lime;
 	border-radius: 10px;
 	outline: none;
 }
