@@ -59,9 +59,9 @@ $(document).ready(function ()
 		shotsMade += 1;
 		gameState = "Shots: " + shotsMade + ", Remaining: " + shotsRemaining;
 		
-		if (guessX >= alienX && guessX <= (alienX + alienWidth))
+		if (hitX())
 		{
-			if (guessY >= alienY && guessY <= (alienY + alienHeight))
+			if (hitY())
 			{
 				gameWon = true;
 				endGame();
@@ -104,7 +104,23 @@ $(document).ready(function ()
 			explosion.style.top = alienY + "px";
 			
 			alien.style.display = "none";
-			missile.style.display = "none";
+			//missile.style.display = "none";
 		}
+	}
+	
+	function hitX()
+	{
+		if(guessX + 9 >= alienX && guessX <= (alienX + alienWidth))
+			return true;
+		else
+			return false;
+	}
+	
+	function hitY()
+	{
+		if (guessY + 9 >= alienY && guessY <= (alienY + alienHeight))
+			return true;
+		else
+			return false;
 	}
 });
