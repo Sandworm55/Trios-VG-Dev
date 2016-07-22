@@ -17,7 +17,7 @@ $(document).ready(function ()
 	var alienY = 20;
 	var guessX = 0;
 	var guessY = 0;
-	var shotsRemaining = 8;
+	var shotsRemaining = 10;
 	var shotsMade = 0;
 	var gameState = "";
 	var gameWon = false;
