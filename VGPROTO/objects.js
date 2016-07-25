@@ -1,4 +1,4 @@
-var spriteObject = function ()
+var SpriteObject = function ()
 {
 
 	this.x = 0;
