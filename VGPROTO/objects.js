@@ -54,3 +54,14 @@ var spriteObject = function ()
 		return this.h / 2;
 	};
 };
+
+var MessageObject = function () 
+{
+	this.x = 0;
+	this.y = 0;
+	this.visible = true;
+	this.font = "normal bold 20px Helvetica";
+	this.fontStyle = "black";
+	this.textBaseline = "top";
+	this.text = "message";
+};
