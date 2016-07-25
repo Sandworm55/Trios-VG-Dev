@@ -22,7 +22,6 @@ $(document).ready(function ()
 	var gameState = "";
 	var gameWon = false;
 
-	console.log(parseInt($("#alien").css("width")));
 
 	button.addEventListener("click", clickHandler);
 	
@@ -79,7 +78,6 @@ $(document).ready(function ()
 		{
 			alienY += getRandom(20,30);
 			alienX = getRandom(0,280);
-			console.log(alienX + " - " + alienY);
 		}
 		
 		updateGraphics();

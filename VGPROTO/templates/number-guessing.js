@@ -1,7 +1,5 @@
-console.log("starting shit up");
 $(document).ready(function ()
 {
-    console.log("GameLogic() loaded");
     // Game variables
     var ceiling = 99;
     var mysteryNumber = Math.floor(Math.random() * ceiling + 1);
@@ -19,7 +17,6 @@ $(document).ready(function ()
 
     function clickHandler()
     {
-        console.log("click:" + playerGuess + "real:" + mysteryNumber);
         validateInput();
     }
 
