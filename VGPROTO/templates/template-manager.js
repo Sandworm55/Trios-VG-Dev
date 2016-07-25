@@ -85,4 +85,11 @@
 			templateUrl:"AlienAttack/alien-attack.html"
 		};
 	}]);
+
+	app.directive("alienArmada",['$window',function($window){
+		return{
+			restrict:'E',
+			templateUrl:"AlienArmada/alien-armada.html"
+		};
+	}]);
 })();
