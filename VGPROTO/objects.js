@@ -1,7 +1,56 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+var spriteObject = function ()
+{
 
+	this.x = 0;
+	this.y = 0;
+	this.w = 32;
+	this.h = 32;
 
+	this.srcX = 0;
+	this.srcY = 0;
+	this.srcW = 0;
+	this.srcH = 0;
+
+	this.vx = 0;
+	this.vy = 0;
+
+	this.visible = true;
+
+	this.left = function ()
+	{
+		return this.x;
+	};
+
+	this.right = function ()
+	{
+		return this.x + this.w;
+	};
+
+	this.top = function ()
+	{
+		return this.y;
+	};
+
+	this.bottom = function ()
+	{
+		return this.y + this.h;
+	};
+	
+	this.center = function ()
+	{
+		return {
+			x: this.x + (this.w / 2),
+			y: this.y + (this.h / 2)
+		};
+	};
+	
+	this.halfWidth = function ()
+	{
+		return this.w / 2;
+	};
+	
+	this.halfHeight = function ()
+	{
+		return this.h / 2;
+	};
+};
