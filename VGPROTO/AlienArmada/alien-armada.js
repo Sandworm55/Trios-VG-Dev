@@ -44,6 +44,7 @@ $(document).ready(function ()
 	// Data structures
 	var sprites = [];
 	var aleins = [];
+	var missiles = [];
 
 	var background = new SpriteObject();
 	background.srcX = 0;
@@ -140,6 +141,16 @@ $(document).ready(function ()
 
 		cannon.x = Math.max(0, Math.min(cannon.x + cannon.vx, canvas.width - cannon.w));
 		
+		if (shoot)
+			fireMissile();
+		
+		for (var i = 0; i < missiles.length; i++)
+		{
+			var missile = missiles[i];
+			missile.vy = -10;
+			missile.y += missile.vy;
+		}
+		
 		alienTimer += 1;
 		if (alienTimer >= alienFrequency)
 		{
@@ -151,10 +162,24 @@ $(document).ready(function ()
 		{
 			var alien = aleins[i];
 			
-			if (alien.state == alien.NORMAL)
+			for (var j = 0; j < missiles.length; j++)
 			{
-				alien.sprite.y += alien.sprite.vy;
+				var missile = missiles[j];
+				
+				if (hitTestRectangle(missile, alien.sprite))
+				{
+					destroyAlien(alien);
+					removeObject(missile,sprites);
+					removeObject(missile,missiles);
+					j -= 1;
+				}
 			}
+			
+			if (alien.state == alien.NORMAL)
+				alien.sprite.y += alien.sprite.vy;
+			
+			if ( alien.sprite.y > canvas.height)
+				gameState = GAMEEND;
 		}
 		
 	}
@@ -189,6 +214,32 @@ $(document).ready(function ()
 		alien.sprite.vy = 1;
 		sprites.push(alien.sprite);
 		aleins.push(alien);
+	}
+	
+	function fireMissile()
+	{
+		var missile = new SpriteObject();
+		missile.srcX = 96;
+		missile.srcH = 16;
+		missile.srcW = 16;
+		missile.w = 16;
+		missile.h = 16;
+		
+		missile.x = cannon.center().x - missile.halfWidth();
+		missile.y = cannon.y - missile.h;
+		
+		sprites.push(missile);
+		missiles.push(missile);
+	}
+	
+	function destroyAlien(alien)
+	{
+		alien.state = alien.EXPLODED;
+		
+		setTimeout(function (){
+			removeObject(alien.sprite, sprites);
+			removeObject(alien, aleins);
+		},1000);
 	}
 	
 	update();
