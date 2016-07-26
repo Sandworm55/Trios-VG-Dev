@@ -3,6 +3,9 @@ $(document).ready(function ()
 	var canvas = document.querySelector("#alien-armada-canvas");
 	var ctx = canvas.getContext("2d");
 	
+	
+	
+	// Gamestates
 	var LOADING = 0;
 	var PLAYING = 1;
 	var GAMEEND = 2;
@@ -104,7 +107,20 @@ $(document).ready(function ()
 	
 	function playGame()
 	{
+		if (moveLeft && !moveRight)
+		{
+			cannon.vx = -8;
+		}
+		if (!moveLeft && moveRight)
+		{
+			cannon.vx = 8;
+		}
+		if (!moveLeft && !moveRight)
+		{
+			cannon.vx = 0;
+		}
 		
+		cannon.x = Math.max(0,Math.min(cannon.x + cannon.vx, canvas.width - cannon.w));
 	}
 	
 	function endGame()
