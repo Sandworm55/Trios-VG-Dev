@@ -8,6 +8,16 @@ $(document).ready(function ()
 	var GAMEEND = 2;
 	var gameState = LOADING;
 	
+	//Keycodes
+	var LEFT	= 37;
+	var RIGHT	= 39;
+	var SPACE	= 32;
+	
+	//Player states
+	var moveLeft	= false;
+	var moveRight	= false;
+	var shoot		= false
+	
 	var assetsToLoad = [];
 	var assetsLoaded = 0;
 	
@@ -25,8 +35,12 @@ $(document).ready(function ()
 	background.srcH = 320;
 	background.w = 480;
 	background.h = 320;
-	
 	sprites.push(background);
+	
+	var cannon = new SpriteObject();
+	cannon.x = canvas.width / 2 - cannon.halfWidth();
+	cannon.y = 280;
+	sprites.push(cannon);
 	
 	
 	function loadHandler()
@@ -37,6 +51,33 @@ $(document).ready(function ()
 		{
 			gameState = PLAYING;
 			image.removeEventListener("load", loadHandler);
+			
+			window.addEventListener("keydown", function (e){
+				switch (e.keyCode){
+					case LEFT:
+						moveLeft = true;
+						break;
+					case RIGHT:
+						moveRight = true;
+						break;
+					case SPACE:
+						shoot = true;
+						break;
+				}
+			});
+			window.addEventListener("keyup", function (e){
+				switch (e.keyCode){
+					case LEFT:
+						moveLeft = false;
+						break;
+					case RIGHT:
+						moveRight = false;
+						break;
+					case SPACE:
+						shoot = false;
+						break;
+				}
+			});
 		}
 	}
 	
@@ -79,7 +120,6 @@ $(document).ready(function ()
 		{
 			var sprite = sprites[i];
 			console.log(sprite);
-			ctx.fillRect(0,0,50,50);
 			ctx.drawImage(image,
 				sprite.srcX, sprite.srcY,
 				sprite.srcW, sprite.srcH,

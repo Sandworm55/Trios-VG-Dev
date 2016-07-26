@@ -8,8 +8,8 @@ var SpriteObject = function ()
 
 	this.srcX = 0;
 	this.srcY = 0;
-	this.srcW = 0;
-	this.srcH = 0;
+	this.srcW = 32;
+	this.srcH = 32;
 
 	this.vx = 0;
 	this.vy = 0;
