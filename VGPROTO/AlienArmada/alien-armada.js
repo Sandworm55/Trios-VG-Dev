@@ -9,7 +9,11 @@ $(document).ready(function ()
 		this.NORMAL = 1;
 		this.EXPLODED = 2;
 		this.state = this.NORMAL;
-
+		
+		this.update = function()
+		{
+			this.sprite.srcX = this.state * this.sprite.srcW;
+		};
 	};
 
 	// Gamestates
@@ -27,11 +31,13 @@ $(document).ready(function ()
 	var moveLeft = false;
 	var moveRight = false;
 	var shoot = false;
+	var spacePressed = false;
 	
 	// Alien spawn timing
 	var alienFrequency = 100;
 	var alienTimer = 0;
 	
+	var score = 0;
 
 	var assetsToLoad = [];
 	var assetsLoaded = 0;
@@ -81,7 +87,11 @@ $(document).ready(function ()
 						moveRight = true;
 						break;
 					case SPACE:
-						shoot = true;
+						if (!spacePressed)
+						{
+							shoot = true;
+							spacePressed = true;
+						}
 						break;
 				}
 			});
@@ -97,6 +107,7 @@ $(document).ready(function ()
 						break;
 					case SPACE:
 						shoot = false;
+						spacePressed = false;
 						break;
 				}
 			});
@@ -112,9 +123,11 @@ $(document).ready(function ()
 				console.log("Loading...");
 				break;
 			case PLAYING:
+				console.log("Playing");
 				playGame();
 				break;
 			case GAMEEND:
+				console.log("Ending");
 				endGame();
 				break;
 			default:
@@ -142,7 +155,10 @@ $(document).ready(function ()
 		cannon.x = Math.max(0, Math.min(cannon.x + cannon.vx, canvas.width - cannon.w));
 		
 		if (shoot)
+		{
 			fireMissile();
+			shoot = false;
+		}
 		
 		for (var i = 0; i < missiles.length; i++)
 		{
@@ -156,6 +172,7 @@ $(document).ready(function ()
 		{
 			makeAlien();
 			alienTimer = 0;
+			alienFrequency = (alienFrequency > 40 ? alienFrequency -= 1 : 40 );
 		}
 		
 		for (var i = 0; i < aleins.length; i++)
@@ -166,12 +183,18 @@ $(document).ready(function ()
 			{
 				var missile = missiles[j];
 				
-				if (hitTestRectangle(missile, alien.sprite))
+				if (alien.state == alien.NORMAL)
 				{
-					destroyAlien(alien);
-					removeObject(missile,sprites);
-					removeObject(missile,missiles);
-					j -= 1;
+					if (hitTestRectangle(missile, alien.sprite))
+					{
+						destroyAlien(alien);
+
+						score += 1;
+
+						removeObject(missile,sprites);
+						removeObject(missile,missiles);
+						j -= 1;
+					}
 				}
 			}
 			
@@ -179,7 +202,10 @@ $(document).ready(function ()
 				alien.sprite.y += alien.sprite.vy;
 			
 			if ( alien.sprite.y > canvas.height)
+			{
+				console.log(alien);
 				gameState = GAMEEND;
+			}
 		}
 		
 	}
@@ -209,7 +235,7 @@ $(document).ready(function ()
 		var alien = new AlienObject();
 		alien.sprite.srcX = 32;
 		alien.sprite.y = -alien.sprite.h;
-		alien.sprite.x = getRandom(0,15)*alien.sprite.w;
+		alien.sprite.x = getRandom(0,14)*alien.sprite.w;
 		
 		alien.sprite.vy = 1;
 		sprites.push(alien.sprite);
@@ -235,7 +261,7 @@ $(document).ready(function ()
 	function destroyAlien(alien)
 	{
 		alien.state = alien.EXPLODED;
-		
+		alien.update();
 		setTimeout(function (){
 			removeObject(alien.sprite, sprites);
 			removeObject(alien, aleins);
