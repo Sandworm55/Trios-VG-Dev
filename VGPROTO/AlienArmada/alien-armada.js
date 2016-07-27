@@ -3,14 +3,18 @@ $(document).ready(function ()
 	var canvas = document.querySelector("#alien-armada-canvas");
 	var ctx = canvas.getContext("2d");
 
+
+
+
+
 	var AlienObject = function ()
 	{
 		this.sprite = new SpriteObject();
 		this.NORMAL = 1;
 		this.EXPLODED = 2;
 		this.state = this.NORMAL;
-		
-		this.update = function()
+
+		this.update = function ()
 		{
 			this.sprite.srcX = this.state * this.sprite.srcW;
 		};
@@ -32,12 +36,12 @@ $(document).ready(function ()
 	var moveRight = false;
 	var shoot = false;
 	var spacePressed = false;
-	
+
 	// Alien spawn timing
 	var alienFrequency = 100;
 	var alienTimer = 0;
-	
-	var score = 0;
+
+	var score = 20;
 
 	var assetsToLoad = [];
 	var assetsLoaded = 0;
@@ -47,10 +51,30 @@ $(document).ready(function ()
 	image.addEventListener("load", loadHandler);
 	assetsToLoad.push(image);
 
+	var music = document.querySelector("#alien-armada #music");
+	music.addEventListener("canplaythrough", loadHandler);
+	music.load();
+	assetsToLoad.push(music);
+
+	var explosion = document.querySelector("#alien-armada #explosion");
+	explosion.addEventListener("canplaythrough", loadHandler);
+	explosion.load();
+	assetsToLoad.push(explosion);
+
+	var shooting = document.querySelector("#alien-armada #shoot");
+	shooting.addEventListener("canplaythrough", loadHandler);
+	shooting.load();
+	assetsToLoad.push(shooting);
+
+
+
 	// Data structures
 	var sprites = [];
 	var aleins = [];
 	var missiles = [];
+	var messages = [];
+
+	var scoreStartPos = 440;
 
 	var background = new SpriteObject();
 	background.srcX = 0;
@@ -66,6 +90,25 @@ $(document).ready(function ()
 	cannon.y = 280;
 	sprites.push(cannon);
 
+	var scoreMessage = new MessageObject();
+	scoreMessage.font = "normal bold 30px emulogic";
+	scoreMessage.fontStyle = "green";
+	scoreMessage.x = scoreStartPos;
+	scoreMessage.y = 40;
+	scoreMessage.visible = true;
+	scoreMessage.text = score;
+
+	messages.push(scoreMessage);
+
+	var gameOverMessage = new MessageObject();
+	gameOverMessage.font = "normal bold 20px emulogic";
+	gameOverMessage.fontStyle = "green";
+	gameOverMessage.x = 20;
+	gameOverMessage.y = 120;
+	gameOverMessage.visible = false;
+	gameOverMessage.text = "Good job, were all dead...";
+
+	messages.push(gameOverMessage);
 
 	function loadHandler()
 	{
@@ -87,7 +130,7 @@ $(document).ready(function ()
 						moveRight = true;
 						break;
 					case SPACE:
-						if (!spacePressed)
+						if ( ! spacePressed && score > 0 )
 						{
 							shoot = true;
 							spacePressed = true;
@@ -121,13 +164,13 @@ $(document).ready(function ()
 		{
 			case LOADING:
 				console.log("Loading...");
+				music.play();
 				break;
 			case PLAYING:
-				console.log("Playing");
 				playGame();
 				break;
 			case GAMEEND:
-				console.log("Ending");
+				music.pause();
 				endGame();
 				break;
 			default:
@@ -153,66 +196,67 @@ $(document).ready(function ()
 		}
 
 		cannon.x = Math.max(0, Math.min(cannon.x + cannon.vx, canvas.width - cannon.w));
-		
-		if (shoot)
+
+		if ( shoot )
 		{
 			fireMissile();
 			shoot = false;
 		}
-		
-		for (var i = 0; i < missiles.length; i++)
+
+		for ( var i = 0; i < missiles.length; i ++ )
 		{
 			var missile = missiles[i];
-			missile.vy = -10;
+			missile.vy = - 10;
 			missile.y += missile.vy;
 		}
-		
+
 		alienTimer += 1;
-		if (alienTimer >= alienFrequency)
+		if ( alienTimer >= alienFrequency )
 		{
 			makeAlien();
 			alienTimer = 0;
-			alienFrequency = (alienFrequency > 40 ? alienFrequency -= 1 : 40 );
+			alienFrequency = (alienFrequency > 40 ? alienFrequency -= 1 : 40);
 		}
-		
-		for (var i = 0; i < aleins.length; i++)
+
+		for ( var i = 0; i < aleins.length; i ++ )
 		{
 			var alien = aleins[i];
-			
-			for (var j = 0; j < missiles.length; j++)
+
+			for ( var j = 0; j < missiles.length; j ++ )
 			{
 				var missile = missiles[j];
-				
-				if (alien.state == alien.NORMAL)
+
+				if ( alien.state == alien.NORMAL )
 				{
-					if (hitTestRectangle(missile, alien.sprite))
+					if ( hitTestRectangle(missile, alien.sprite) )
 					{
 						destroyAlien(alien);
+						explosion.currentTime = 0;
+						explosion.play();
 
-						score += 1;
+						score += 3;
 
-						removeObject(missile,sprites);
-						removeObject(missile,missiles);
+						removeObject(missile, sprites);
+						removeObject(missile, missiles);
 						j -= 1;
 					}
 				}
 			}
-			
-			if (alien.state == alien.NORMAL)
+
+			if ( alien.state == alien.NORMAL )
 				alien.sprite.y += alien.sprite.vy;
-			
-			if ( alien.sprite.y > canvas.height)
+
+			if ( alien.sprite.y > canvas.height )
 			{
-				console.log(alien);
 				gameState = GAMEEND;
 			}
 		}
-		
+
 	}
 
 	function endGame()
 	{
-
+		gameOverMessage.visible = true;
 	}
 
 	function render()
@@ -229,44 +273,67 @@ $(document).ready(function ()
 					sprite.w, sprite.h
 					);
 		}
+
+		scoreMessage.x = scoreStartPos - ((score.toString().length - 1) * 30);
+		scoreMessage.text = score;
+
+		for ( var i = 0; i < messages.length; i ++ )
+		{
+			var message = messages[i];
+
+			if ( message.visible )
+			{
+				ctx.font = message.font;
+				ctx.fillStyle = message.fontStyle;
+				ctx.textBaseLine = message.textBaseLine;
+
+				ctx.fillText(message.text, message.x, message.y);
+			}
+		}
 	}
-	
-	function makeAlien(){
+
+	function makeAlien()
+	{
 		var alien = new AlienObject();
 		alien.sprite.srcX = 32;
-		alien.sprite.y = -alien.sprite.h;
-		alien.sprite.x = getRandom(0,14)*alien.sprite.w;
-		
+		alien.sprite.y = - alien.sprite.h;
+		alien.sprite.x = getRandom(0, 14) * alien.sprite.w;
+
 		alien.sprite.vy = 1;
 		sprites.push(alien.sprite);
 		aleins.push(alien);
 	}
-	
+
 	function fireMissile()
 	{
+		shooting.currentTime = 0;
+		shooting.play();
+		score -= 1;
+
 		var missile = new SpriteObject();
 		missile.srcX = 96;
 		missile.srcH = 16;
 		missile.srcW = 16;
 		missile.w = 16;
 		missile.h = 16;
-		
+
 		missile.x = cannon.center().x - missile.halfWidth();
 		missile.y = cannon.y - missile.h;
-		
+
 		sprites.push(missile);
 		missiles.push(missile);
 	}
-	
+
 	function destroyAlien(alien)
 	{
 		alien.state = alien.EXPLODED;
 		alien.update();
-		setTimeout(function (){
+		setTimeout(function ()
+		{
 			removeObject(alien.sprite, sprites);
 			removeObject(alien, aleins);
-		},1000);
+		}, 1000);
 	}
-	
+
 	update();
 });
