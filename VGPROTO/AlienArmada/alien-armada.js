@@ -164,6 +164,7 @@ $(document).ready(function ()
 		{
 			case LOADING:
 				console.log("Loading...");
+				music.volume = 0.3;
 				music.play();
 				break;
 			case PLAYING:
