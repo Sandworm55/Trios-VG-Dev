@@ -1,3 +1,10 @@
+/**
+ * checks to see if am x and y cord is in a SpriteObject
+ * @param {int} px x of point
+ * @param {int} py y of point
+ * @param {SpriteObject} r SpriteObject checking hit on
+ * @returns {Boolean} true if hit, false if miss
+ */
 function hitTestPoint(px, py, r)
 {
 	var hit = false;
@@ -7,7 +14,12 @@ function hitTestPoint(px, py, r)
 
 	return hit;
 }
-
+/**
+ * checks to see if 2 SpriteObjects are overlapping, or colliding
+ * @param {SpriteObject} r1 first SpriteObject
+ * @param {SpriteObject} r2 second SpriteObject
+ * @returns {Boolean} true if hit, false if miss
+ */
 function hitTestRectangle(r1, r2)
 {
 	var hit = false;
@@ -23,7 +35,5 @@ function hitTestRectangle(r1, r2)
 		if ( Math.abs(dy) < sumHalfHeights )
 			hit = true;
 	}
-
 	return hit;
-
 }
