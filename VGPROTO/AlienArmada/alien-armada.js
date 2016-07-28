@@ -37,6 +37,7 @@ $(document).ready(function ()
 	var moveRight = false;
 	var shoot = false;
 	var spacePressed = false;
+	var gameOver = false;
 
 	// Alien spawn timing
 	var alienFrequency = 100;
@@ -71,7 +72,7 @@ $(document).ready(function ()
 
 	// Data structures
 	var sprites = [];
-	var aleins = [];
+	var aliens = [];
 	var missiles = [];
 	var messages = [];
 
@@ -147,6 +148,7 @@ $(document).ready(function ()
 			cannon.visible = true;
 			scoreMessage.visible = true;
 			gameState = PLAYING;
+			gameOver = false;
 		}
 	}
 
@@ -219,6 +221,7 @@ $(document).ready(function ()
 			case GAMEEND:
 				music.pause();
 				endGame();
+
 				break;
 			default:
 				console.log("Welp, shit went pear shaped on us....");
@@ -229,11 +232,37 @@ $(document).ready(function ()
 
 	function showMenu()
 	{
-
+		if (!gameOver){
+			window.addEventListener("mousedown", clickHandler);
+			
+			playButton.visible = true;
+			gameOver = true;
+			
+			alienFrequency = 100;
+			score = 20;
+			
+			cannon.x = (canvas.width / 2) - (cannon.w / 2);
+			
+			for (var i = 0; i < aliens.length;i++)
+			{
+				var alien = aliens[i];
+				removeObject(alien.sprite, sprites);
+			}
+			aliens = [];
+			
+			for (var i = 0; i < missiles.length;i++)
+			{
+				var missile = missiles[i];
+				removeObject(missile, sprites);
+			}
+			missiles = [];
+		}
 	}
 
 	function playGame()
 	{
+		gameOverMessage.visible = false;
+		
 		if ( moveLeft && ! moveRight )
 		{
 			cannon.vx = - 8;
@@ -270,9 +299,9 @@ $(document).ready(function ()
 			alienFrequency = (alienFrequency > 40 ? alienFrequency -= 1 : 40);
 		}
 
-		for ( var i = 0; i < aleins.length; i ++ )
+		for ( var i = 0; i < aliens.length; i ++ )
 		{
-			var alien = aleins[i];
+			var alien = aliens[i];
 
 			for ( var j = 0; j < missiles.length; j ++ )
 			{
@@ -309,6 +338,7 @@ $(document).ready(function ()
 	function endGame()
 	{
 		gameOverMessage.visible = true;
+		gameState = MENU;
 	}
 
 	function render()
@@ -356,7 +386,7 @@ $(document).ready(function ()
 
 		alien.sprite.vy = 1;
 		sprites.push(alien.sprite);
-		aleins.push(alien);
+		aliens.push(alien);
 	}
 
 	function fireMissile()
@@ -386,7 +416,7 @@ $(document).ready(function ()
 		setTimeout(function ()
 		{
 			removeObject(alien.sprite, sprites);
-			removeObject(alien, aleins);
+			removeObject(alien, aliens);
 		}, 1000);
 	}
 
