@@ -92,4 +92,10 @@
 			templateUrl:"AlienArmada/alien-armada.html"
 		};
 	}]);
+	app.directive("hedgehogApocalypse",['$window',function($window){
+		return{
+			restrict:'E',
+			templateUrl:"HedgehogApocalypse/hedgehog-apocalypse.html"
+		};
+	}]);
 })();
