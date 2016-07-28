@@ -22,8 +22,9 @@ $(document).ready(function ()
 
 	// Gamestates
 	var LOADING = 0;
-	var PLAYING = 1;
-	var GAMEEND = 2;
+	var MENU	= 1;
+	var PLAYING = 2;
+	var GAMEEND = 3;
 	var gameState = LOADING;
 
 	//Keycodes
@@ -77,38 +78,58 @@ $(document).ready(function ()
 	var scoreStartPos = 440;
 
 	var background = new SpriteObject();
-	background.srcX = 0;
-	background.srcY = 32;
-	background.srcW = 480;
-	background.srcH = 320;
-	background.w = 480;
-	background.h = 320;
-	sprites.push(background);
+		background.srcX = 0;
+		background.srcY = 32;
+		background.srcW = 480;
+		background.srcH = 320;
+		background.w = 480;
+		background.h = 320;
+		sprites.push(background);
+
+	var title = new SpriteObject();
+		title.srcY = 352;
+		title.srcW = 275;
+		title.srcH = 145;
+		title.x = 106;
+		title.y = 50;
+		title.w = 275;
+		title.h = 145;
+		sprites.push(title);
+
+	var playButton = new SpriteObject();
+		playButton.srcX = 275;
+		playButton.srcY = 352;
+		playButton.srcW = 108;
+		playButton.srcH = 54;
+		playButton.x = 187;
+		playButton.y = 213;
+		playButton.w = 108;
+		playButton.h = 54;
+		sprites.push(playButton);
 
 	var cannon = new SpriteObject();
-	cannon.x = canvas.width / 2 - cannon.halfWidth();
-	cannon.y = 280;
-	sprites.push(cannon);
+		cannon.x = canvas.width / 2 - cannon.halfWidth();
+		cannon.y = 280;
+		cannon.visible = false;
+		sprites.push(cannon);
 
 	var scoreMessage = new MessageObject();
-	scoreMessage.font = "normal bold 30px emulogic";
-	scoreMessage.fontStyle = "green";
-	scoreMessage.x = scoreStartPos;
-	scoreMessage.y = 40;
-	scoreMessage.visible = true;
-	scoreMessage.text = score;
-
-	messages.push(scoreMessage);
+		scoreMessage.font = "normal bold 30px emulogic";
+		scoreMessage.fontStyle = "green";
+		scoreMessage.x = scoreStartPos;
+		scoreMessage.y = 40;
+		scoreMessage.visible = false;
+		scoreMessage.text = score;
+		messages.push(scoreMessage);
 
 	var gameOverMessage = new MessageObject();
-	gameOverMessage.font = "normal bold 20px emulogic";
-	gameOverMessage.fontStyle = "green";
-	gameOverMessage.x = 20;
-	gameOverMessage.y = 120;
-	gameOverMessage.visible = false;
-	gameOverMessage.text = "Good job, were all dead...";
-
-	messages.push(gameOverMessage);
+		gameOverMessage.font = "normal bold 20px emulogic";
+		gameOverMessage.fontStyle = "green";
+		gameOverMessage.x = 20;
+		gameOverMessage.y = 120;
+		gameOverMessage.visible = false;
+		gameOverMessage.text = "Good job, were all dead...";
+		messages.push(gameOverMessage);
 
 	function loadHandler()
 	{
@@ -116,8 +137,11 @@ $(document).ready(function ()
 
 		if ( assetsLoaded == assetsToLoad.length )
 		{
-			gameState = PLAYING;
+			gameState = MENU;
 			image.removeEventListener("load", loadHandler);
+			music.removeEventListener("canplaythrough", loadHandler);
+			shooting.removeEventListener("canplaythrough", loadHandler);
+			explosion.removeEventListener("canplaythrough", loadHandler);
 
 			window.addEventListener("keydown", function (e)
 			{
@@ -167,6 +191,9 @@ $(document).ready(function ()
 				music.volume = 0.3;
 				music.play();
 				break;
+			case MENU:
+				showMenu();
+				break;
 			case PLAYING:
 				playGame();
 				break;
@@ -180,7 +207,12 @@ $(document).ready(function ()
 
 		render();
 	}
-
+	
+	function showMenu()
+	{
+		
+	}
+	
 	function playGame()
 	{
 		if ( moveLeft && ! moveRight )
@@ -267,12 +299,15 @@ $(document).ready(function ()
 		for ( var i = 0; i < sprites.length; i ++ )
 		{
 			var sprite = sprites[i];
-			ctx.drawImage(image,
-					sprite.srcX, sprite.srcY,
-					sprite.srcW, sprite.srcH,
-					Math.floor(sprite.x), Math.floor(sprite.y),
-					sprite.w, sprite.h
-					);
+			if (sprite.visible)
+			{
+				ctx.drawImage(image,
+						sprite.srcX, sprite.srcY,
+						sprite.srcW, sprite.srcH,
+						Math.floor(sprite.x), Math.floor(sprite.y),
+						sprite.w, sprite.h
+				);
+			}
 		}
 
 		scoreMessage.x = scoreStartPos - ((score.toString().length - 1) * 30);
