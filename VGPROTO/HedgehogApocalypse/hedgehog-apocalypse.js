@@ -1,6 +1,5 @@
 $(document).ready(function ()
 {
-
 	var canvasHA = document.querySelector("#hedgehog-apocalypse canvas");
 	var ctxHA = canvasHA.getContext("2d");
 
@@ -11,7 +10,7 @@ $(document).ready(function ()
 
 	var imageHA = new Image();
 	imageHA.addEventListener("load", loadHandler);
-	imageHA.src = "hedgehogApocalypse.png";
+	imageHA.src = "HedgehogApocalypse/Resources/hedgehogApocalypse.png";
 	assetsToLoadHA.push(imageHA);
 
 	//Game States
@@ -30,6 +29,55 @@ $(document).ready(function ()
 	var moveRight = false;
 	var moveLeft = false;
 	var jumping = false;
+
+	var HedgehogObject = function ()
+	{
+		this.sprite = new SpriteObject();
+		this.NORMAL = [1, 0];
+		this.SQUASHED = [2, 0];
+		this.state = this.NORMAL;
+
+		this.update = function ()
+		{
+			this.sprite.srcX = this.state[0] * this.sprite.srcW;
+			this.sprite.srcY = this.state[1] * this.sprite.srcW;
+		};
+
+		this.speed = 1;
+	};
+	var map =
+			[
+				[7, 7, 8, 9, 7, 7, 7, 8, 9, 7, 7, 7, 8, 9, 7, 7],
+				[8, 9, 7, 7, 4, 9, 7, 7, 7, 8, 9, 7, 7, 7, 8, 5],
+				[4, 7, 7, 7, 7, 7, 8, 9, 7, 7, 7, 8, 9, 7, 4, 4],
+				[7, 7, 4, 7, 7, 4, 4, 4, 4, 7, 7, 7, 7, 7, 7, 7],
+				[8, 9, 4, 7, 7, 7, 7, 8, 9, 7, 7, 4, 8, 9, 7, 7],
+				[7, 4, 4, 4, 7, 8, 9, 7, 7, 7, 4, 4, 7, 7, 4, 8],
+				[9, 7, 8, 9, 7, 7, 7, 8, 9, 4, 7, 4, 9, 7, 7, 7],
+				[7, 7, 7, 7, 7, 4, 4, 7, 7, 7, 7, 4, 4, 4, 4, 7],
+				[8, 9, 7, 7, 7, 7, 7, 7, 7, 8, 9, 7, 7, 8, 9, 7],
+				[7, 7, 4, 4, 4, 4, 7, 7, 4, 7, 7, 7, 7, 7, 7, 7],
+				[7, 7, 7, 7, 7, 7, 7, 7, 7, 4, 7, 7, 7, 7, 7, 7],
+				[6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6]
+			];
+
+//The game objects map
+
+	var gameObjects =
+			[
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0]
+			];
 
 	function loadHandler()
 	{
@@ -95,22 +143,38 @@ $(document).ready(function ()
 		render();
 	}
 
+	var hog = new HedgehogObject();
+	hog.sprite.x = 200;
+	hog.sprite.y = 200;
+	hog.sprite.w = 64;
+	hog.sprite.h = 64;
+	hog.sprite.srcW = 64;
+	hog.sprite.srcH = 64;
+	hog.update();
+	spritesHA.push(hog.sprite);
+
 	function render()
 	{
-		ctxHA.clearRect(0,0,canvasHA.width,canvasHA.height);
-		
-		for (var i = 0;i<spritesHA.length; i++)
+		ctxHA.clearRect(0, 0, canvasHA.width, canvasHA.height);
+
+		for ( var i = 0; i < spritesHA.length; i ++ )
 		{
 			var sprite = spritesHA[i];
-			
-			if (sprite.visible)
+			if ( sprite.visible )
 			{
 				ctxHA.drawImage(imageHA,
-				sprite.srcX,sprite.srcY,
-				sprite.srcW,sprite.srcH,
-				Math.floor(sprite.x),Math.floor(sprite.y),
-				sprite.w,sprite.h);
+						sprite.srcX, sprite.srcY,
+						sprite.srcW, sprite.srcH,
+						Math.floor(sprite.x), Math.floor(sprite.y),
+						sprite.w, sprite.h);
 			}
 		}
 	}
+
+	function playGame()
+	{
+
+	}
+
+	update();
 });
