@@ -231,6 +231,18 @@ $(document).ready(function ()
 							box.h = 64;
 							spritesHA.push(box);
 							break;
+						case DOOR:
+							var door = new SpriteObject();
+							door.srcX = tileSheetX;
+							door.srcY = tileSheetY;
+							door.srcW = 64;
+							door.srcH = 64;
+							door.x = col * SIZE;
+							door.y = row * SIZE;
+							door.w = 64;
+							door.h = 64;
+							spritesHA.push(door);
+							break;
 						default:
 							var sprite = new SpriteObject();
 							sprite.srcX = tileSheetX;
