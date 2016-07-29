@@ -83,6 +83,10 @@ $(document).ready(function ()
 	var HEDGEHOG = 2;
 	var BOX = 4;
 	var DOOR = 5;
+	var GRASS = 6;
+	var SKY = 7;
+	var CLOUD1 = 8;
+	var CLOUD2 = 9;
 
 	var SIZE = 64;
 
@@ -98,7 +102,7 @@ $(document).ready(function ()
 		if ( assetsLoadedHA == assetsToLoadHA.length )
 		{
 			imageHA.removeEventListener("load", loadHandler);
-			gameState = PLAYING;
+			gameState = BUILD_MAP;
 
 			window.addEventListener("keydown", function (e)
 			{
@@ -143,7 +147,8 @@ $(document).ready(function ()
 				console.log("Loading...");
 				break;
 			case BUILD_MAP:
-				// TODO BUILD_MAP state
+				buildMap(map);
+				buildMap(gameObjects);
 				break;
 			case PLAYING:
 				playGame();
@@ -155,15 +160,7 @@ $(document).ready(function ()
 		render();
 	}
 
-	var hog = new HedgehogObject();
-	hog.sprite.x = 200;
-	hog.sprite.y = 200;
-	hog.sprite.w = 64;
-	hog.sprite.h = 64;
-	hog.sprite.srcW = 64;
-	hog.sprite.srcH = 64;
-	hog.update();
-	spritesHA.push(hog.sprite);
+	var cat = null;
 
 	function render()
 	{
@@ -190,10 +187,65 @@ $(document).ready(function ()
 			for ( var col = 0; col < COLS; col ++ )
 			{
 				var currentTile = levelMap[row][col];
-				
-				if (currentTile != EMPTY)
+
+				if ( currentTile != EMPTY )
 				{
 					var tileSheetX = Math.floor((currentTile - 1) % tileSheetColumns) * SIZE;
+					var tileSheetY = Math.floor((currentTile - 1) / tileSheetColumns) * SIZE;
+
+					switch (currentTile)
+					{
+						case CAT:
+							cat = new SpriteObject();
+							cat.srcX = tileSheetX;
+							cat.srcY = tileSheetY;
+							cat.srcH = 64;
+							cat.srcW = 64;
+							cat.x = col * SIZE;
+							cat.y = row * SIZE;
+							cat.w = 64;
+							cat.h = 64;
+							spritesHA.push(cat);
+							break;
+						case HEDGEHOG:
+							var hedgehog = new HedgehogObject();
+							hedgehog.sprite.srcX = tileSheetX;
+							hedgehog.sprite.srcY = tileSheetY;
+							hedgehog.sprite.srcW = 64;
+							hedgehog.sprite.srcH = 64;
+							hedgehog.sprite.x = col * SIZE;
+							hedgehog.sprite.y = row * SIZE;
+							hedgehog.sprite.w = 64;
+							hedgehog.sprite.h = 64;
+							spritesHA.push(hedgehog.sprite);
+							break;
+						case BOX:
+							var box = new SpriteObject();
+							box.srcX = tileSheetX;
+							box.srcY = tileSheetY;
+							box.srcW = 64;
+							box.srcH = 64;
+							box.x = col * SIZE;
+							box.y = row * SIZE;
+							box.w = 64;
+							box.h = 64;
+							spritesHA.push(box);
+							break;
+						default:
+							var sprite = new SpriteObject();
+							sprite.srcX = tileSheetX;
+							sprite.srcY = tileSheetY;
+							sprite.srcW = 64;
+							sprite.srcH = 64;
+							sprite.x = col * SIZE;
+							sprite.y = row * SIZE;
+							sprite.w = 64;
+							sprite.h = 64;
+							spritesHA.push(sprite);
+							break;
+						
+
+					}
 				}
 			}
 		}
