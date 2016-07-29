@@ -45,6 +45,7 @@ $(document).ready(function ()
 
 		this.speed = 1;
 	};
+
 	var map =
 			[
 				[7, 7, 8, 9, 7, 7, 7, 8, 9, 7, 7, 7, 8, 9, 7, 7],
@@ -61,8 +62,6 @@ $(document).ready(function ()
 				[6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6]
 			];
 
-//The game objects map
-
 	var gameObjects =
 			[
 				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -78,6 +77,19 @@ $(document).ready(function ()
 				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 				[0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0]
 			];
+
+	var EMPTY = 0;
+	var CAT = 1;
+	var HEDGEHOG = 2;
+	var BOX = 4;
+	var DOOR = 5;
+
+	var SIZE = 64;
+
+	var ROWS = map.length;
+	var COLS = map[0].length;
+
+	var tileSheetColumns = 3;
 
 	function loadHandler()
 	{
@@ -167,6 +179,22 @@ $(document).ready(function ()
 						sprite.srcW, sprite.srcH,
 						Math.floor(sprite.x), Math.floor(sprite.y),
 						sprite.w, sprite.h);
+			}
+		}
+	}
+
+	function buildMap(levelMap)
+	{
+		for ( var row = 0; row < ROWS; row ++ )
+		{
+			for ( var col = 0; col < COLS; col ++ )
+			{
+				var currentTile = levelMap[row][col];
+				
+				if (currentTile != EMPTY)
+				{
+					var tileSheetX = Math.floor((currentTile - 1) % tileSheetColumns) * SIZE;
+				}
 			}
 		}
 	}
