@@ -45,7 +45,7 @@ $(document).ready(function ()
 
 		this.speed = 1;
 	};
-
+	{
 	var map =
 			[
 				[7, 7, 8, 9, 7, 7, 7, 8, 9, 7, 7, 7, 8, 9, 7, 7],
@@ -76,7 +76,7 @@ $(document).ready(function ()
 				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 				[0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0]
-			];
+			];}
 
 	var EMPTY = 0;
 	var CAT = 1;
@@ -149,6 +149,7 @@ $(document).ready(function ()
 			case BUILD_MAP:
 				buildMap(map);
 				buildMap(gameObjects);
+				gameState = PLAYING;
 				break;
 			case PLAYING:
 				playGame();
@@ -255,7 +256,7 @@ $(document).ready(function ()
 							sprite.h = 64;
 							spritesHA.push(sprite);
 							break;
-						
+
 
 					}
 				}
@@ -265,7 +266,26 @@ $(document).ready(function ()
 
 	function playGame()
 	{
+		if ( moveLeft && ! moveRight )
+		{
+			cat.ax = - 0.2;
+			cat.friction = 1;
+		}
+		else if ( ! moveLeft && moveRight )
+		{
+			cat.ax = 0.2;
+			cat.friction = 1;
+		}
 
+		if ( ! moveLeft & ! moveRight )
+		{
+			cat.ax = 0;
+			cat.friction = 0.96;
+		}
+		
+		cat.vx += cat.ax;
+		cat.vx *= cat.friction;
+		cat.x += cat.vx;
 	}
 
 	update();
