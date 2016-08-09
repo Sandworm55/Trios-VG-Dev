@@ -24,3 +24,14 @@ function removeObject(objectToRemove,array)
 		array.splice(index,1);
 	}
 }
+
+/**
+ * returns string of percentage of the 2 numbers given 0-100
+ * @param {int} a first number
+ * @param {int} b total number
+ * @returns {String} percentage of 2 numbers given
+ */
+function getPercentage(a,b)
+{
+	return Math.floor((a / b)*100).toString();
+}

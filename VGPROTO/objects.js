@@ -12,9 +12,18 @@ var SpriteObject = function ()
 	this.srcW = 32;
 	this.srcH = 32;
 
+	this.ay = 0;
+	this.ax = 0;
 	this.vx = 0;
 	this.vy = 0;
-
+	
+	this.friction = 0.96;
+	this.bounce = -0.7;
+	this.gravity = 0.3;
+	
+	this.jumpForce = -10;
+	this.isOnGround = undefined;
+	
 	this.visible = true;
 
 	this.left = function ()
@@ -36,7 +45,7 @@ var SpriteObject = function ()
 	{
 		return this.y + this.h;
 	};
-	
+
 	this.center = function ()
 	{
 		return {
@@ -44,19 +53,19 @@ var SpriteObject = function ()
 			y: this.y + (this.h / 2)
 		};
 	};
-	
+
 	this.halfWidth = function ()
 	{
 		return this.w / 2;
 	};
-	
+
 	this.halfHeight = function ()
 	{
 		return this.h / 2;
 	};
 };
 
-var MessageObject = function () 
+var MessageObject = function ()
 {
 	this.x = 0;
 	this.y = 0;

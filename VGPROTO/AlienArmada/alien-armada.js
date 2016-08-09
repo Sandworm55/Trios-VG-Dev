@@ -3,6 +3,10 @@ $(document).ready(function ()
 	var canvas = document.querySelector("#alien-armada-canvas");
 	var ctx = canvas.getContext("2d");
 
+
+
+
+
 	var AlienObject = function ()
 	{
 		this.sprite = new SpriteObject();
@@ -206,7 +210,7 @@ $(document).ready(function ()
 			case LOADING:
 				console.log("Loading...");
 				music.volume = 0.3;
-				music.play();
+				//music.play();
 				break;
 			case MENU:
 				showMenu();
