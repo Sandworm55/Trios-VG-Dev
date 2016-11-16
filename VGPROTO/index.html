@@ -13,10 +13,6 @@
 
 		<script type="text/javascript" src="templates/template-manager.js"></script>
 
-		<script src="basicFunctions.js" type="text/javascript"></script>
-		<script src="objects.js" type="text/javascript"></script>
-		<script src="collisions.js" type="text/javascript"></script>
-
 		<link href="styles.css" rel="stylesheet">
 
 	</head>
@@ -35,8 +31,10 @@
 					<div id="canvasHome" class="MakeItBig" >
 						<small-games ng-show="sideTab.isSetSide(1)">
 						</small-games>
-						<hedgehog-apocalypse ng-show="assignTab.isSetAssign(5)">
-						</hedgehog-apocalypse>
+						<chicken-coop-troop ng-show="assignTab.isSetAssign(1)">
+						</chicken-coop-troop>
+						<dark-adam ng-show="assignTab.isSetAssign(2)">
+						</dark-adam>
 					</div>
 				</div>
 			</div>

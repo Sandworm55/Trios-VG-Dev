@@ -77,3 +77,50 @@ button:active{
 	box-shadow: 5px 5px 5px rgba(0,0,0,0.5);
 	position: relative;
 }
+#background{
+	background-image: url(resources/background.png);
+	width: 300px;
+	height: 300px;
+}
+
+#cannon{
+	background-image: url(resources/cannon.png);
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	top: 270px;
+	left: 140px;
+}
+
+#missile{
+	background-image: url(resources/missile.png);
+	width: 10px;
+	height: 10px;
+	position: absolute;
+	top: 240px;
+	left: 145px;
+}
+
+#alien{
+	background-image: url(resources/alien.png);
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	top: 20px;
+	left: 80px;
+}
+
+#explosion{
+	background-image: url(resources/explosion.png);
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	display: none;
+}
+
+@font-face{
+	src: url(resources/emulogic.ttf);
+	font-family: emulogic;
+}
