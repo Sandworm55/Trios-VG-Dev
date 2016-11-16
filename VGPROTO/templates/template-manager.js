@@ -64,38 +64,4 @@
 			templateUrl:"small-games.html"
 		};
 	}]);	
-	
-	app.directive("asteroidAvoid",['$window',function($window){
-		return{
-			restrict:'A',
-			templateUrl:"templates/asteroid-avoid.html"
-		};
-	}]);
-	
-	app.directive("numberGuessing",['$window',function($window){
-		return{
-			restrict:'E',
-			templateUrl:"templates/number-guessing.html"
-		};
-	}]);
-    
-	app.directive("alienAttack",['$window',function($window){
-		return{
-			restrict:'E',
-			templateUrl:"AlienAttack/alien-attack.html"
-		};
-	}]);
-
-	app.directive("alienArmada",['$window',function($window){
-		return{
-			restrict:'E',
-			templateUrl:"AlienArmada/alien-armada.html"
-		};
-	}]);
-	app.directive("hedgehogApocalypse",['$window',function($window){
-		return{
-			restrict:'E',
-			templateUrl:"HedgehogApocalypse/hedgehog-apocalypse.html"
-		};
-	}]);
 })();

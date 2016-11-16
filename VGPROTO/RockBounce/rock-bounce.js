@@ -9,7 +9,7 @@ $(document).ready(function ()
 	resizeCanvas();
 	$(window).resize(resizeCanvas);
 
-	spawnAsteroids(50);
+	spawnAsteroids(15);
 
 	//calls a looping function
 	animate();
@@ -35,7 +35,7 @@ $(document).ready(function ()
 			drawAsteroid(tempAsteroid);
 		}
 
-		setTimeout(animate, 1000);
+		setTimeout(animate, 33);
 
 	}
 
@@ -48,7 +48,7 @@ $(document).ready(function ()
 
 
 		//Class declarations
-		Asteroid = function (x, y, radius, vx, vy, mass)
+		Asteroid = function (x, y, radius, vx, vy, mass,num)
 		{
 			this.x = x;
 			this.y = y;
@@ -56,6 +56,7 @@ $(document).ready(function ()
 			this.vx = vx;
 			this.vy = vy;
 			this.mass = mass;
+			this.num = num;
 		};
 
 		myButton = function (color)
@@ -92,11 +93,11 @@ $(document).ready(function ()
 			var radius = 5 + Math.random() * 10;
 			var x = 20 + (Math.random() * (canvas.width() - 40));
 			var y = 20 + (Math.random() * (canvas.height() - 40));
-			var vx = Math.random() * 40 - 20;
-			var vy = Math.random() * 40 - 20;
+			var vx = Math.random() * 20 - 5;
+			var vy = Math.random() * 20 - 5;
 			var mass = radius / 2;
 
-			asteroids.push(new Asteroid(x, y, radius, vx, vy));
+			asteroids.push(new Asteroid(x, y, radius, vx, vy,mass,i));
 		}
 	}
 
@@ -115,16 +116,39 @@ $(document).ready(function ()
 
 	function checkAsteroidToAsteroidColision(tempAsteroidVar, iNum)
 	{
-		for ( j = iNum + 1 ; j < asteroids.length ; j++)
+		for (j = iNum + 1; j < asteroids.length; j ++)
 		{
 			var tempAsteroid2 = asteroids[j];
+			var dx = tempAsteroid2.x - tempAsteroidVar.x;
+			var dy = tempAsteroid2.y - tempAsteroidVar.y;
 			var distance = Math.sqrt(dx * dx + dy * dy);
 			if (distance < tempAsteroid2.radius + tempAsteroidVar.radius)
 			{
-				var vx = (tempAsteroidVar.vx * (tempAsteroidVar.mass – tempAsteroid2.mass) + (2 * tempAsteroid2.mass * tempAsteroid2.vx)) / (tempAsteroidVar.mass + tempAsteroid2.mass);
-				var vy = (tempAsteroidVar.vy * (tempAsteroidVar.mass – tempAsteroid2.mass) + (2 * tempAsteroid2.mass * tempAsteroid2.vy)) / (tempAsteroidVar.mass + tempAsteroid2.mass);
-				var vx2 = (tempAsteroid2.vx * (tempAsteroid2.mass – tempAsteroidVar.mass) + (2 * tempAsteroidVar.mass * tempAsteroidVar.vx)) / (tempAsteroidVar.mass + tempAsteroid2.mass);
-				var vy2 = (tempAsteroid2.vy * (tempAsteroid2.mass – tempAsteroidVar.mass) + (2 * tempAsteroidVar.mass * tempAsteroidVar.vy)) / (tempAsteroidVar.mass + tempAsteroid2.mass);
+				var vx = (tempAsteroidVar.vx *
+						(tempAsteroidVar.mass-tempAsteroid2.mass) +
+						(2 * tempAsteroid2.mass * tempAsteroid2.vx)) /
+						(tempAsteroidVar.mass + tempAsteroid2.mass);
+
+				var vy = (tempAsteroidVar.vy *
+						(tempAsteroidVar.mass - tempAsteroid2.mass) +
+						(2 * tempAsteroid2.mass * tempAsteroid2.vy)) /
+						(tempAsteroidVar.mass + tempAsteroid2.mass);
+
+				var vx2 = (tempAsteroid2.vx *
+						(tempAsteroid2.mass - tempAsteroidVar.mass) +
+						(2 * tempAsteroidVar.mass * tempAsteroidVar.vx)) /
+						(tempAsteroidVar.mass + tempAsteroid2.mass);
+
+				var vy2 = (tempAsteroid2.vy *
+						(tempAsteroid2.mass - tempAsteroidVar.mass) +
+						(2 * tempAsteroidVar.mass * tempAsteroidVar.vy)) /
+						(tempAsteroidVar.mass + tempAsteroid2.mass);
+
+				tempAsteroidVar.vx = vx;
+				tempAsteroidVar.vy = vy;
+				tempAsteroid2.vx = vx2;
+				tempAsteroid2.vy = vy2;
+
 			}
 		}
 	}

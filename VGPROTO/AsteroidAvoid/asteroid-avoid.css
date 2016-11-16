@@ -42,3 +42,25 @@ canvas{
 	padding-top:	20px;
 	font-size: 		30px;
 }
+a{
+	text-decoration:none;
+}
+
+a:hover{
+	text-decoration:none;
+	color:			white;
+}
+
+a.button{
+	background:		#185DA8;
+	border-radius:	5px;
+	font-size:		30px;
+	display: 		block;
+	width:			200px;
+	text-align:		center;
+	margin:			40px 0 0 270px;
+}
+
+a.button:hover{
+	background:		#2488f5;
+}

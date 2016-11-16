@@ -61,7 +61,6 @@ a.button{
 
 a.button:hover{
 	background:		#2488f5;
-
 }
 
 @font-face{
@@ -69,85 +68,7 @@ a.button:hover{
 	font-family: emulogic;
 }
 
-#alien-attack *{
-	font-family: emulogic;
-	padding: 0px;
-	margin: 0px;
-}
 
-#alien-attack h1{
-	text-align: center;
-	font-size: 24px;
-	color: #FFBF00;
-	padding-bottom: 20px;
-	text-shadow: 3px 3px lime;
-	text-stroke: 1px #000;
-	-webkit-text-stroke: 1px #000;
-	-moz-text-stroke: 1px #000;
-}
-
-#alien-attack p{
-	text-align: center;
-	font-size: 12px;
-	padding-bottom: 20px;
-	color: #FFBF00;
-}
-
-#alien-attack input{
-	font-size: 15px;
-	background-color: black;
-	color: #ffbf00;
-	width: 75px;
-	padding: 5px 10px;
-	text-align: center;
-	border: 2px solid lime;
-	border-radius: 10px;
-	outline: none;
-}
-
-#alien-attack button{
-	font-size: 15px;
-	color: #ffbf00;
-	padding: 5px 10px;
-	background: black;
-	border: 2px solid lime;
-	border-radius: 10px;
-	outline: none;
-}
-
-#alien-attack button:hover{
-	background-color: #ffbf00;
-	color: black;
-}
-
-#alien-attack button:active{
-	transform: translate(3px,3px);
-	background-color: #9e7606;
-	color: black;
-}
-
-#alien-attack{
-	width: 330px;
-	height: auto;
-	margin: 0 auto;
-	border: 1px solid black;
-	border-radius: 10px;
-	padding: 15px;
-
-	background: linear-gradient(top, #588063, #000000);
-	background: -webkit-linear-gradient(top, #588063, #000000);
-	background: -moz-linear-gradient(top, #588063, #000000);
-}
-
-#alien-attack #stage{
-	margin: 0 auto;
-	width: 300px;
-	height: 300px;
-	border: 1px solid lime;
-	margin-bottom: 20px;
-	box-shadow: 5px 5px 5px rgba(0,0,0,0.5);
-	position: relative;
-}
 
 #background{
 	background-image: url(AlienAttack/background.png);
