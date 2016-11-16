@@ -1,0 +1,42 @@
+<html>
+	<head>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+		<script type="text/javascript" src="asteroid-avoid.js"></script>
+		<link href="asteroid-avoid.css" rel="stylesheet">
+		<title>Asteroid Avoid</title>
+	</head>
+	<body>
+		<div id="game">
+			<div id="gameUI">
+				<div id="gameIntro">
+					<h1 class="title">Asteroid Avoid!</h1>
+					<p>Click play and then press any key to start.</p>
+					<p><a id="gamePlay" class="button" href >Play</a></p>
+				</div>
+				<div id="gameStats">
+					<p>Time: <span class="gameScore"></span> seconds.</p>
+					<p><a class="gameReset" href="">Reset</a></p>
+				</div>
+				<div id="gameComplete">
+					<h1 class="title">Game Over!</h1>
+					<p>You survived for <span class="gameScore"></span> seconds.</p>
+					<p><a class="gameReset button" href="">Play Again</a></p>
+				</div>
+			</div>
+			<canvas id="asteroidAvoid" width="800" height="600">
+			</canvas>
+
+			<audio id="gameSoundBackground" loop>
+				<source src="background.mp3">
+			</audio>	
+
+			<audio id="gameSoundDeath">
+				<source src="death.mp3">
+			</audio>
+
+			<audio id="gameSoundThrust" loop>
+				<source src="thrust.mp3">
+			</audio>
+		</div>
+	</body>
+</html>

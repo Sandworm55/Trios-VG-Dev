@@ -1,0 +1,17 @@
+body{
+	font-family:	Verdana,Arial,sans-serif;
+}
+canvas{
+	display:		block;
+}
+#stage{
+	width: 480px;
+	margin: auto;
+	padding: 20px;
+	border: 2px black solid;
+	border-radius: 20px;
+}
+
+canvas{
+	border: 1px black solid;
+}

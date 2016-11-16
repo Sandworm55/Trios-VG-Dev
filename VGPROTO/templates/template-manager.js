@@ -58,10 +58,10 @@
 		};
 	});
 	
-	app.directive("rockDodgeBody",['$window',function($window){
+	app.directive("smallGames",['$window',function($window){
 		return{
 			restrict:'E',
-			templateUrl:"templates/rock-dodge-body.html"
+			templateUrl:"small-games.html"
 		};
 	}]);	
 	

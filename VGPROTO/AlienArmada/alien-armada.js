@@ -3,10 +3,6 @@ $(document).ready(function ()
 	var canvas = document.querySelector("#alien-armada-canvas");
 	var ctx = canvas.getContext("2d");
 
-
-
-
-
 	var AlienObject = function ()
 	{
 		this.sprite = new SpriteObject();
@@ -49,7 +45,7 @@ $(document).ready(function ()
 	var assetsLoaded = 0;
 
 	var image = new Image();
-	image.src = "AlienArmada/resources/alienArmada.png";
+	image.src = "resources/alienArmada.png";
 	image.addEventListener("load", loadHandler);
 	assetsToLoad.push(image);
 
@@ -126,7 +122,7 @@ $(document).ready(function ()
 	var gameOverMessage = new MessageObject();
 	gameOverMessage.font = "normal bold 20px emulogic";
 	gameOverMessage.fontStyle = "green";
-	gameOverMessage.x = 20;
+	gameOverMessage.x = 140;
 	gameOverMessage.y = 120;
 	gameOverMessage.visible = false;
 	gameOverMessage.text = "Good job, were all dead...";

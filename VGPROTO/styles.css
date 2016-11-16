@@ -2,7 +2,10 @@ contentBox *{
 	margin: 		0;
 	padding: 		0;
 }
-
+#contentBox{
+	width: 800px;
+	margin:auto;
+}
 #canvasHome,body,html{
 
 	height:			100%;
@@ -27,38 +30,6 @@ canvas{
 	width:			100%;
 }
 
-#game{
-	background:		black;
-	color:			white;
-	font-size:		18px;
-	height: 		600px;
-	width:			800px;
-	left:			50%;
-	top:			50%;
-	position: 		relative;
-	margin:			100px 0 0 -400px;
-}
-
-#gameUI{
-	height:			600px;
-	width:			800px;
-	position:		absolute;
-}
-
-#gameIntro, #gameComplete{
-	background: 	rgba(0,0,0,0.5);
-	margin-top:		100px;
-	padding: 		40px 0;
-	text-align:		center;
-}
-
-#gameStats .gameReset{
-	margin:			20px 20px 0 0;
-	position:		absolute;
-	right:			0;
-	top:			0;
-}
-
 .title{
 	margin-top:		0;
 	padding-top:	20px;
@@ -70,7 +41,6 @@ p{
 }
 
 a{
-	color:			white;
 	text-decoration:none;
 }
 
