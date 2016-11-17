@@ -56,6 +56,15 @@
 		};
 	});
 
+	app.controller("CCTController", function ()
+	{
+		this.GDDclick = function ()
+		{
+			console.log("clicked");
+			$("#GDDPDF").slideToggle(2000);
+		};
+	});
+
 	app.controller("AssignTabController", function ()
 	{
 		this.AssignTab = 0;
@@ -82,11 +91,11 @@
 	app.directive("chickenCoopTroop", ['$window', function ($window)
 		{
 			return{
-				restrict: 'E',
+				restrict: 'A',
 				templateUrl: "templates/chicken-coop-troop.html"
 			};
 		}]);
-	
+
 	app.directive("darkAdam", ['$window', function ($window)
 		{
 			return{

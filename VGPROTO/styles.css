@@ -67,3 +67,17 @@ a.button:hover{
 	src: url(emulogic.ttf);
 	font-family: emulogic;
 }
+
+#GDD{
+	background-color: grey;
+	width:100%;
+}
+
+.navbar-nav{
+	float: none;
+    display: inline-block;
+}
+
+#bs-example-navbar-collapse-1{
+	text-align: center;
+}
