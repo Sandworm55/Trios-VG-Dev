@@ -25,7 +25,8 @@ $(document).ready(function ()
 		for (i = 0; i < asteroids.length; i ++)
 		{
 			var tempAsteroid = asteroids[i];
-
+			
+			tempAsteroid.vy += .5;
 			tempAsteroid.x += tempAsteroid.vx;
 			tempAsteroid.y += tempAsteroid.vy;
 

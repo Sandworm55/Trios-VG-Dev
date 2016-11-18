@@ -1,12 +1,34 @@
 <h1>Dark Adam</h1>
 <p>
-<a href='/DarkAdam/DarkAdam-scroll.exe' download>with</a>
-or
-<a href='/DarkAdam/DarkAdam-noScroll.exe' download>without</a>
+	This was made as a project for my C++ class and also doubles as a sort of demo/trailer
+	for the full version I intend to make. It was made in 3 weeks with 
+	<a href="http://triosdevelopers.com/~S.Holmes/">Stewart Holmes</a> 
+	and was an interesting project, as we realized what we wanted to do was not so simple.
+	We ended up needing to make an event system to manage all the actions, which was not
+	planned. This ended up cutting into alot of the time and we had to scale back some
+	features. The setting is a dystopian city, where any form of weapons are banned, 
+	and gangs completely run the city.
+</p>
+<p>
+	The main focus of the story is on a character Adam, who left town after a big
+	disaster where he faked his own death.  He's back in town now to find out
+	the truth of what happened that night.  Along the way he meets with his old gang
+	and deal with the old gangs and the new ones.
+</p>
+<p>
+	The design is that of a JRPG made with text adventure elements.  The city is 
+	made of 'Areas' which have 'Rooms' to explore.  Events run everything that 
+	happens, combat events start off the hop, and everything else can be seen 
+	from the events menu.  During conversations the text can scroll but as this
+	can be annoying, and due to the lack of main menu, you can try it 
+	<a href='DarkAdam/DarkAdam-scroll.zip'>with</a>
+	or
+	<a href='DarkAdam/DarkAdam-noScroll.zip'>without</a>
+	scrolling.
 </p>
 
-<div id='accordian' ng-click="DAcon.HCclick()"><h2>High Concept</h2></div>
-<object id='HCPDF' class='content-for-accordian' height='800' width='800' data='DarkAdam/DarkAdam.pdf'></object>
+<div id='accordian' ng-click="DAcon.HCclick()"><h2>Design Document</h2></div>
+<object id='HCPDF' class='content-for-accordian' height='800' width='790' data='DarkAdam/DarkAdam.pdf'></object>
 
 <div id='accordian' ng-click="DAcon.picturesClick()"><h2>Screen Shots</h2></div>
 <div id='pictures' class="content-for-accordian">
@@ -16,51 +38,33 @@ or
 			<li class="item1 active"></li>
 			<li class="item2"></li>
 			<li class="item3"></li>
-			<li class="item4"></li>		
-			<li class="item5"></li>
-
 		</ol>
 
 		<!-- Wrapper for slides -->
 		<div class="carousel-inner" role="listbox">
 
 			<div class="item active">
-				<img src="pictures/main-menu.png" alt="Main Menu" width="460" height="345">
+				<img src="pictures/DarkAdamChat.png" alt="Chat" width="460" height="345">
 				<div class="carousel-caption">
-					<h3>Main Menu</h3>
-					<p>Let the fight for the farm begin, maybe tweak some settings first.</p>
+					<h3>Chat</h3>
+					<p>With alot of dialog and an interesting story, you really start
+						to wonder whats next.</p>
 				</div>
 			</div>
 
 			<div class="item">
-				<img src="pictures/options.png" alt="Options" width="460" height="345">
+				<img src="pictures/DarkAdamCombat.png" alt="Combat" width="460" height="345">
 				<div class="carousel-caption">
-					<h3>Options Menu</h3>
-					<p>Not a huge selection, but at least I can silence this trumpet.</p>
+					<h3>Combat</h3>
+					<p>Turn based combat, ah my old friend.</p>
 				</div>
 			</div>
 
 			<div class="item">
-				<img src="pictures/new-game.png" alt="New Game" width="460" height="345">
+				<img src="pictures/DarkAdamMovement.png" alt="Movement" width="460" height="345">
 				<div class="carousel-caption">
-					<h3>New Game</h3>
-					<p>Thats some interesting terrain, oh god, here comes the first worm.</p>
-				</div>
-			</div>
-
-			<div class="item">
-				<img src="pictures/mid-game.png" alt="Mid-Game" width="460" height="345">
-				<div class="carousel-caption">
-					<h3>Mid-Game</h3>
-					<p>Man this is getting intense, how many worms are there.</p>
-				</div>
-			</div>
-			
-			<div class="item">
-				<img src="pictures/near-end.png" alt="Near end" width="460" height="345">
-				<div class="carousel-caption">
-					<h3>Near end</h3>
-					<p>Man, almost there, I hope this doesn't end in a cliff hanger.</p>
+					<h3>Movement</h3>
+					<p>Text based movement system, with areas and rooms.</p>
 				</div>
 			</div>
 		</div>

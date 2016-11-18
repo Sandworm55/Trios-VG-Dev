@@ -3,8 +3,12 @@ contentBox *{
 	padding: 		0;
 }
 #contentBox{
+	padding:0 10px;
 	width: 800px;
 	margin:auto;
+	padding-bottom: 70px;
+	overflow:auto;
+	min-height: 100%;
 }
 #canvasHome,body,html{
 
@@ -34,10 +38,6 @@ canvas{
 	margin-top:		0;
 	padding-top:	20px;
 	font-size: 		30px;
-}
-
-p{
-	margin:			0 20px;
 }
 
 a{
@@ -97,4 +97,67 @@ a.button:hover{
 .carousel-inner > .item > a > img {
 	width: 70%;
 	margin: auto;
+}
+
+.carousel-indicators {
+	bottom: 80px;
+}
+
+.carousel-caption {
+    position: initial;
+    right: 15%;
+}
+
+#myCarousel{
+	background: black;
+	border-radius: 10px;
+}
+.carousel-control {
+    background-color: rgba(0,0,0,0);
+}
+
+.carousel-control.right {
+    background-image: linear-gradient(to right,rgba(256,256,256,.0001) 0,rgba(256,256,256,.5) 100%);
+}
+
+.carousel-control.left {
+    background-image: linear-gradient(to left,rgba(256,256,256,.0001) 0,rgba(256,256,256,.5) 100%);
+}
+
+.carousel-control{
+	border-radius: 10px;
+}
+
+#greeting{
+	width: 100%;
+	text-align: center;
+}
+
+.footer {
+	position: relative;
+	margin-top: -60px; /* negative value of footer height */
+	height: 60px;
+	clear:both;
+	background: black;
+}
+
+.container {
+	width: auto;
+	max-width: 680px;
+	padding: 0 15px;
+	text-align: center;
+}
+
+.container .text-muted {
+	margin: 10px 0;
+}
+
+#education > li:not(:last-child){
+	margin: 20px 0;
+}
+
+#photo{
+	height: 250px;
+	border-radius: 15px;
+	border: 10px inset #000000;
 }

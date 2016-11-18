@@ -18,11 +18,11 @@
 		};
 	});
 
-	app.directive("extraStuffBody", function ()
+	app.directive("resume", function ()
 	{
 		return{
 			restrict: 'E',
-			templateUrl: "templates/extra-stuff-body.html"
+			templateUrl: "templates/resume.html"
 		};
 	});
 
@@ -83,14 +83,6 @@
 		$("#cct .item3").click(function ()
 		{
 			$("#cct #myCarousel").carousel(2);
-		});
-		$("#cct .item4").click(function ()
-		{
-			$("#cct #myCarousel").carousel(3);
-		});
-		$("#cct .item5").click(function ()
-		{
-			$("#cct #myCarousel").carousel(4);
 		});
 
 		// Enable Carousel Controls
@@ -188,6 +180,14 @@
 			return{
 				restrict: 'A',
 				templateUrl: "templates/dark-adam.html"
+			};
+		}]);
+	
+	app.directive("footer", ['$window', function ($window)
+		{
+			return{
+				restrict: 'A',
+				templateUrl: "templates/footer.html"
 			};
 		}]);
 })();
