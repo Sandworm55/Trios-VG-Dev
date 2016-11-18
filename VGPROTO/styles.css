@@ -46,7 +46,6 @@ a{
 
 a:hover{
 	text-decoration:none;
-	color:			white;
 }
 
 a.button{
@@ -68,9 +67,22 @@ a.button:hover{
 	font-family: emulogic;
 }
 
-#GDD{
-	background-color: grey;
+#accordian{
+	background: darkgray;		
+	box-shadow: 2px 2px 5px rgba(0,0,0,0.5),
+		inset 5px 5px 8px rgba(256,256,256,0.5);
 	width:100%;
+	padding:5px;
+	margin:5px 0;
+	border-radius: 10px;
+}
+
+#accordian h2{
+	margin: 10px;
+}
+
+.content-for-accordian{
+	display: none;
 }
 
 .navbar-nav{
@@ -80,4 +92,9 @@ a.button:hover{
 
 #bs-example-navbar-collapse-1{
 	text-align: center;
+}
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+	width: 70%;
+	margin: auto;
 }

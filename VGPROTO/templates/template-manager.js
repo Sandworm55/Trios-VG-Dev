@@ -58,11 +58,98 @@
 
 	app.controller("CCTController", function ()
 	{
-		this.GDDclick = function ()
+		this.HCclick = function ()
 		{
-			console.log("clicked");
-			$("#GDDPDF").slideToggle(2000);
+			$("#cct #HCPDF").slideToggle(2000);
 		};
+
+		this.picturesClick = function ()
+		{
+			$("#cct #pictures").slideToggle(2000);
+			$("#cct #myCarousel").carousel(0);
+		};
+		// Activate Carousel
+		$("#cct #myCarousel").carousel();
+
+		// Enable Carousel Indicators
+		$("#cct .item1").click(function ()
+		{
+			$("#cct #myCarousel").carousel(0);
+		});
+		$("#cct .item2").click(function ()
+		{
+			$("#cct #myCarousel").carousel(1);
+		});
+		$("#cct .item3").click(function ()
+		{
+			$("#cct #myCarousel").carousel(2);
+		});
+		$("#cct .item4").click(function ()
+		{
+			$("#cct #myCarousel").carousel(3);
+		});
+		$("#cct .item5").click(function ()
+		{
+			$("#cct #myCarousel").carousel(4);
+		});
+
+		// Enable Carousel Controls
+		$("#cct .left").click(function ()
+		{
+			$("#cct #myCarousel").carousel("prev");
+		});
+		$("#cct .right").click(function ()
+		{
+			$("#cct #myCarousel").carousel("next");
+		});
+	});
+	
+	app.controller("DAController", function ()
+	{
+		this.HCclick = function ()
+		{
+			$("#darkAdam #HCPDF").slideToggle(2000);
+		};
+
+		this.picturesClick = function ()
+		{
+			$("#darkAdam #pictures").slideToggle(2000);
+			$("#darkAdam #myCarousel").carousel(0);
+		};
+		// Activate Carousel
+		$("#darkAdam #myCarousel").carousel();
+
+		// Enable Carousel Indicators
+		$("#darkAdam .item1").click(function ()
+		{
+			$("#darkAdam #myCarousel").carousel(0);
+		});
+		$("#darkAdam .item2").click(function ()
+		{
+			$("#darkAdam #myCarousel").carousel(1);
+		});
+		$("#darkAdam .item3").click(function ()
+		{
+			$("#darkAdam #myCarousel").carousel(2);
+		});
+		$("#darkAdam .item4").click(function ()
+		{
+			$("#darkAdam #myCarousel").carousel(3);
+		});
+		$("#darkAdam .item5").click(function ()
+		{
+			$("#darkAdam #myCarousel").carousel(4);
+		});
+
+		// Enable Carousel Controls
+		$("#darkAdam .left").click(function ()
+		{
+			$("#darkAdam #myCarousel").carousel("prev");
+		});
+		$("#darkAdam .right").click(function ()
+		{
+			$("#darkAdam #myCarousel").carousel("next");
+		});
 	});
 
 	app.controller("AssignTabController", function ()
@@ -99,7 +186,7 @@
 	app.directive("darkAdam", ['$window', function ($window)
 		{
 			return{
-				restrict: 'E',
+				restrict: 'A',
 				templateUrl: "templates/dark-adam.html"
 			};
 		}]);

@@ -28,15 +28,19 @@
 					<extra-stuff-body ng-show="tab.isSet(2)">
 					</extra-stuff-body>
 
-					<div id="canvasHome" class="MakeItBig" >
+					<div class="MakeItBig" >
 						<small-games ng-show="sideTab.isSetSide(1)">
 						</small-games>
 						<div chicken-coop-troop 
+							 id="cct"
 							 ng-show="assignTab.isSetAssign(1)" 
 							 ng-controller="CCTController as CCTcon">
 						</div>
-						<dark-adam ng-show="assignTab.isSetAssign(2)">
-						</dark-adam>
+						<div dark-adam 
+							 id="darkAdam"
+							 ng-show="assignTab.isSetAssign(2)"
+							 ng-controller="DAController as DAcon">
+						</div>
 					</div>
 				</div>
 			</div>
